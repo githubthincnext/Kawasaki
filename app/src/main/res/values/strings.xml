@@ -16,6 +16,8 @@
     <string name="enter_4_digits">Enter 4-digit OTP continue</string>
     <string name="enter_valid_otp">Enter valid OTP</string>
     <string name="title_activity_home">HomeActivity</string>
+
+    <string name="exit">EXIT</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -27,6 +29,8 @@
     <string name="sos">SOS</string>
     <string name="inbox">Inbox</string>
     <string name="profile">Profile</string>
+    <string name="search_city">Search City</string>
+    <string name="search">Search</string>
     <string name="kawasaki_ninja">Kawasaki Ninja H2R</string>
     <string name="ramesh_kumar">Ramesh Kumar</string>
     <string name="mon_number">9800312421</string>
@@ -41,6 +45,8 @@
     <string name="book_service">Book Service</string>
     <string name="service">Service</string>
     <string name="date_of_service">Date of service</string>
+    <string name="from_time">From Time</string>
+    <string name="to_time">To Time</string>
     <string name="city">City</string>
     <string name="dealer">Dealer</string>
     <string name="book_service_done">Book Service Done</string>
@@ -49,6 +55,13 @@
     <string name="kawasaki_limited_bangalore">Kawasaki limited, Bangalore</string>
     <string name="search_dealer_contact">Search Dealer Contact</string>
 
+    <string name="profile_details">Profile Details</string>
+    <string name="edit">Edit</string>
+    <string name="bikes_registered">Bikes Registered</string>
+    <string name="select_service_type">Please Select Service Type</string>
+    <string name="please_enter_date">Please Enter Date</string>
+    <string name="please_give_from_date">Please Give From Date</string>
+    <string name="please_give_to_date">Please Give To Date</string>
     <string-array name="month_name">
         <item>January</item>
         <item>Feb</item>
@@ -66,11 +79,36 @@
         <item>Kawasaki Limited</item>
     </string-array>
 
-    <string-array name="service">
-        <item>Suggested Service</item>
-    </string-array>
+    <string name="free_service">Free Service</string>
+    <string name="periodic_service">Periodic Service</string>
+    <string name="breakdown_repair">Breakdown \nRepair</string>
+    <string name="washing">Washing</string>
+
     <string name="title_activity_sos">SOS</string>
     <string name="title_activity_inbox">InboxActivity</string>
-
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="confirm">Confirm !</string>
+    <string name="logout_confirmation">Are you sure you want to logout from app?</string>
+    <string name="exit_confirmaton">Are you sure you want to exit from app?</string>
+    <string name="cancel">Cancel</string>
+    <string name="logout">Logout</string>
+    <string name="primary_bike">Primary Bike</string>
+    <string name="select_primary_bike">Select/Switch ON one bike as Primary</string>
+    <string name="pickup_required">PickUp Required</string>
+    <string name="title_activity_primary">PrimaryActivity</string>
+    <string name="title_activity_search_city">SearchCity</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="no_email">No Email</string>
+    <string name="title_activity_service_history">ServiceHistory</string>
+    <string name="loading">Loading</string>
+    <string name="service_name">Service ID</string>
+    <string name="dot">:</string>
+    <string name="service_type">ServiceType</string>
+    <string name="km_reading">KMreading</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="Info">Information</string>
+    <string name="service_number">Service Number</string>
 
 </resources>

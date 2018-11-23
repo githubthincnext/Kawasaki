@@ -7,63 +7,14 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Activity.SOS"
+    android:id="@+id/constraintLayout"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     tools:showIn="@layout/activity_sos">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/back_ground_book"
-        android:orientation="horizontal">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/space_5"
-            android:contentDescription="@string/nav_header_desc"
-            android:paddingTop="@dimen/nav_header_vertical_spacing"
-            android:src="@drawable/profile_kawasaki" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/space_5"
-            android:orientation="vertical">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kawasaki Nonja H2R"
-                android:layout_marginLeft="@dimen/space_5"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/text_18"
-                android:textStyle="bold"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="KA 0 6734"
-                android:layout_marginLeft="@dimen/space_5"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/text_16"
-
-                />
-
-
-        </LinearLayout>
-
-
-
-    </LinearLayout>
-
 
         <android.support.v7.widget.CardView
             android:id="@+id/card_view"
@@ -99,7 +50,7 @@
              android:layout_height="wrap_content"
              android:textColor="@color/colorChild"
              android:padding="@dimen/space_5"
-             android:text="Dealer"/>
+             android:text="@string/dealer"/>
 
 
 
@@ -110,16 +61,43 @@
              <TextView
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:text="@string/kawasaki_limited_bangalore"
+                 android:text="@string/phone"
                  android:padding="@dimen/space_5"
                  android:textColor="@color/colorText"
+                 android:id="@+id/last_dealer_mobile_number"
                  android:textSize="@dimen/text_16"/>
 
              <ImageView
+                 android:layout_width="@dimen/space_40"
+                 android:layout_height="@dimen/space_40"
+                 android:background="@drawable/call_image"
+                 android:id="@+id/last_dealer_call_icon"
+                 android:layout_gravity="end"/>
+         </FrameLayout>
+
+
+
+
+         <FrameLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+             <TextView
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:background="@drawable/call_image"
+                 android:text="@string/email"
+                 android:padding="@dimen/space_5"
+                 android:textColor="@color/colorText"
+                 android:id="@+id/last_dealer_email"
+                 android:textSize="@dimen/text_16"/>
+
+             <ImageView
+                 android:layout_width="@dimen/space_40"
+                 android:layout_height="@dimen/space_40"
+                 android:background="@drawable/email"
+                 android:id="@+id/last_dealer_email_icon"
                  android:layout_gravity="end"/>
+
          </FrameLayout>
      </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -205,20 +183,52 @@
                 </FrameLayout>
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="@dimen/text_18"
-                    android:text="+91-9986220360"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/phone"
+                        android:padding="@dimen/space_5"
+                        android:textColor="@color/colorText"
+                        android:id="@+id/search_dealer_mobile_number"
+                        android:textSize="@dimen/text_16"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/space_40"
+                        android:layout_height="@dimen/space_40"
+                        android:background="@drawable/call_image"
+                        android:id="@+id/serach_dealer_call_icon"
+                        android:layout_gravity="end"/>
+                </FrameLayout>
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="@dimen/text_18"
-                    android:text="+91-9986220360"/>
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/email"
+                        android:padding="@dimen/space_5"
+                        android:textColor="@color/colorText"
+                        android:id="@+id/search_dealer_email"
+                        android:textSize="@dimen/text_16"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/space_40"
+                        android:layout_height="@dimen/space_40"
+                        android:background="@drawable/email"
+                        android:id="@+id/serach_dealer_email_icon"
+                        android:layout_gravity="end"/>
+
+                </FrameLayout>
 
             </LinearLayout>
 

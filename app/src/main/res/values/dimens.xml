@@ -22,4 +22,6 @@
     <dimen name="space_16">16dp</dimen>
     <dimen name="space_12">12dp</dimen>
     <dimen name="space_24">24dp</dimen>
+    <dimen name="space_40">40dp</dimen>
+    <dimen name="space_3">3dp</dimen>
 </resources>

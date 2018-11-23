@@ -13,6 +13,7 @@ import com.software.thincnext.kawasaki.Services.Constants;
 public class SplashScreen extends AppCompatActivity {
 
     private static final String TAG = SplashScreen.class.getSimpleName();
+
     // handler
     private Handler mHanlder = new Handler();
     private SharedPreferences mPref;

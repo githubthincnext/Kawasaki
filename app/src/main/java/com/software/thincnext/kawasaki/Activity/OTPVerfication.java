@@ -3,7 +3,9 @@ package com.software.thincnext.kawasaki.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,7 +15,14 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.software.thincnext.kawasaki.ApiRequest.OtpRequest;
+import com.software.thincnext.kawasaki.ApiRequest.OtpResponse;
+import com.software.thincnext.kawasaki.Models.Primary.Login;
 import com.software.thincnext.kawasaki.Models.Register.Otp.OtpOutPut;
+import com.software.thincnext.kawasaki.Primary.PrimaryActivity;
 import com.software.thincnext.kawasaki.R;
 import com.software.thincnext.kawasaki.Services.API;
 import com.software.thincnext.kawasaki.Services.ConnectionDetector;
@@ -23,6 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,6 +65,8 @@ public class OTPVerfication extends AppCompatActivity {
     @BindView(R.id.linear_layout)
     LinearLayout parentLayout;
 
+    private String otp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +75,10 @@ public class OTPVerfication extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        sharedPreferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
+
+        otp = sharedPreferences.getString(Constants.OTP, null);
+        codeText.setText(otp);
 
         //Initialising progress dialog
         mProgress = new ProgressDialog(this);
@@ -126,6 +142,8 @@ public class OTPVerfication extends AppCompatActivity {
         if (isInternetPresent) {
 
             verifyOtp();
+
+
         }
         else
         {
@@ -138,52 +156,71 @@ public class OTPVerfication extends AppCompatActivity {
 
     private void verifyOtp() {
 
-        showProgressDialog(getResources().getString(R.string.please_wait));
-        String otp = codeText.getText().toString();
 
-      //  Toast.makeText(OTPVerfication.this,otp,Toast.LENGTH_SHORT).show();
+
+        //progress dialog
+        showProgressDialog(getResources().getString(R.string.please_wait));
+
+        String otpStatus=sharedPreferences.getString(Constants.OTP_STATUS,null);
+        String mobNumber=sharedPreferences.getString(Constants.MOBILE_NUMBER,null);
+
+
+
+        OtpRequest otpRequest=new OtpRequest();
+        otpRequest.setmOtp(otp);
+        otpRequest.setmOtpStatus(otpStatus);
+        otpRequest.setmPhoneNumber(mobNumber);
 
         builder = getHttpClient();
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(GsonConverterFactory.create()).client(builder.build()).build();
         API gi = retrofit.create(API.class);
 
 
-        Call<OtpOutPut> call = (Call<OtpOutPut>) gi.verifyOtp(otp);
-        call.enqueue(new Callback<OtpOutPut>() {
+        Call<JsonArray> call = (Call<JsonArray>) gi.VerifyOtp(otpRequest);
+        call.enqueue(new Callback<JsonArray>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
-            public void onResponse(Call<OtpOutPut> call, Response<OtpOutPut> response) {
-
-                Log.i(TAG, String.valueOf(response.body()));
-                OtpOutPut otpOutPut = response.body();
-
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> jsonArrayResponse) {
                 if (mProgress != null) {
                     mProgress.dismiss();
                 }
 
-                //Checking for response code
-                if (response.code() == 200) {
-
-
-
-
-                    if (otpOutPut.getMessage().equalsIgnoreCase("Verified successyfully..")) {
-
-                        Toast.makeText(OTPVerfication.this, otpOutPut.getMessage(), Toast.LENGTH_SHORT).show();
+                //Checking for  null response
+                if (jsonArrayResponse != null) {
+                    //Checking for response code
+                    if (jsonArrayResponse.code() == 200) {
+                        Log.e("OTP VERIFY MESSAGE", jsonArrayResponse.message());
 
                         //Saving sharedpreference values
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean(Constants.IS_LOGGED_IN, true);
-
                         editor.commit();
 
-                        Intent homeIntent = new Intent(OTPVerfication.this, HomeActivity.class);
-                        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(homeIntent);
+                        Log.e("RESPONSE SIZE", jsonArrayResponse.body().size()+"");
 
+                        if (jsonArrayResponse.body().size()==1){
+                            Intent homeIntent = new Intent(OTPVerfication.this, HomeActivity.class);
+                            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(homeIntent);
+                        }
+else {
+                            Intent homeIntent = new Intent(OTPVerfication.this, PrimaryActivity.class);
+                            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(homeIntent);
+                        }
 
                     }
 
-                    else {
+                        else {
+                            Toast.makeText(OTPVerfication.this,"OTP is Not Verified",Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+
+
+
+                    } else {
 
                         if (mProgress != null) {
                             mProgress.dismiss();
@@ -193,23 +230,26 @@ public class OTPVerfication extends AppCompatActivity {
                             if (mProgress != null) {
                                 mProgress.dismiss();
                             }
-                            Toast.makeText(OTPVerfication.this, "Something went wrong! Error :" + response.code(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(OTPVerfication.this, "Something went wrong! Error :" , Toast.LENGTH_SHORT).show();
 
 
                         }
 
+
                     }
                 }
-            }
+
+
             @Override
-            public void onFailure(Call<OtpOutPut> call, Throwable t) {
-                Toast.makeText(OTPVerfication.this,"Something went wrong!  Try again",Toast.LENGTH_SHORT).show();
-
-
-
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+                Toast.makeText(OTPVerfication.this, "Something went wrong!  Try again", Toast.LENGTH_SHORT).show();
             }
+
 
         });
+
+
+
 
 
     }
@@ -248,19 +288,11 @@ public class OTPVerfication extends AppCompatActivity {
 
             validFlag = false;
         }
-        else
-        {
-            if (verifyCode.length() <4 )
-            {
-                mOtpError.setText(R.string.enter_valid_otp);
-                mOtpError.setVisibility(View.VISIBLE);
 
-                validFlag = false;
-            }
             else
             {
                 mOtpError.setVisibility(View.GONE);
-            }
+
         }
 
         return validFlag;
