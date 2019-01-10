@@ -7,7 +7,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-
 import com.software.thincnext.kawasaki.Activity.HomeActivity;
 import com.software.thincnext.kawasaki.R;
 

@@ -176,7 +176,7 @@
                             android:textSize="@dimen/text_16"
                             android:id="@+id/email"
                             android:textColor="@color/colorText"
-                            android:text="@string/no_email"/>
+                            tools:text="@string/no_email"/>
 
                         <TextView
                             android:layout_width="wrap_content"

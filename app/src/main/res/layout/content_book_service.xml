@@ -160,6 +160,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/checkBoxYesPickUp"
+                android:theme="@style/WhiteCheck"
                 android:text="@string/yes"/>
 
             </LinearLayout>
@@ -174,6 +175,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/checkBoxNoPickUp"
+                        android:theme="@style/WhiteCheck"
                         android:text="@string/no"/>
 
                 </LinearLayout>
@@ -267,12 +269,13 @@
                 android:focusable="false"
                 android:layout_height="wrap_content"
                 />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/report_date"
-                android:id="@+id/fromDatePicker"
-                android:layout_gravity="end"/>
+
+                <ImageView
+                    android:id="@+id/fromDatePicker"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end"
+                    android:background="@drawable/time_picker" />
             </LinearLayout>
 
             <LinearLayout
@@ -291,9 +294,9 @@
                 android:layout_height="wrap_content"
                 />
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/report_date"
+                    android:layout_width="@dimen/space_24"
+                    android:layout_height="24dp"
+                    android:background="@drawable/time_picker"
                     android:id="@+id/todatePicker"
                     android:layout_gravity="end"/>
             </LinearLayout>

@@ -23,7 +23,7 @@
                 android:id="@+id/iv_login_splashLogo"
                 android:layout_width="@dimen/space_128"
                 android:layout_height="@dimen/space_128"
-                android:src="@drawable/kawasaki"/>
+                android:src="@drawable/reachout"/>
 
 
             <TextView

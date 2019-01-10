@@ -110,5 +110,6 @@
     <string name="no">No</string>
     <string name="Info">Information</string>
     <string name="service_number">Service Number</string>
+    <string name="update">Update</string>
 
 </resources>

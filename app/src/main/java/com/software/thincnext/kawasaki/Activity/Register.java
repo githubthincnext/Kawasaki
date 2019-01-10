@@ -15,20 +15,13 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.software.thincnext.kawasaki.Models.Primary.Login;
-import com.software.thincnext.kawasaki.Primary.PrimaryActivity;
 import com.software.thincnext.kawasaki.R;
 import com.software.thincnext.kawasaki.Services.API;
 import com.software.thincnext.kawasaki.Services.ConnectionDetector;
 import com.software.thincnext.kawasaki.Services.Constants;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +35,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Register extends AppCompatActivity {
+    public class Register extends AppCompatActivity {
 
     @BindView(R.id.tv_login_mobileNumberError)
     TextView mobileError;
@@ -164,7 +157,7 @@ public class Register extends AppCompatActivity {
                             editor.putString(Constants.REGISTER_NUMBER,registerNumber);
                             editor.putString(Constants.CUSTOMER_NAME,name);
                             editor.putString(Constants.EMAIL,email);
-                            editor.commit();
+                            editor.apply();
 
                             if (otpStatus.equalsIgnoreCase("1")) {
                                 Intent intent = new Intent(Register.this, OTPVerfication.class);

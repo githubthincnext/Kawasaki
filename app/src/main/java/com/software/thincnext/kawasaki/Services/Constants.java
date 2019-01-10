@@ -7,7 +7,7 @@ public class Constants {
 
 
     //client base url
-    public static final String BASE_URL= "http://kawasaki.gaindms.com:82/service.asmx/";
+    public static final String BASE_URL= "http://kawasaki.gaindms.com:84/service.asmx/";
 
     public static final String CUSTOMER_NAME="customer_name";
     public static final String EMAIL="email";

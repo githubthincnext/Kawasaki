@@ -114,6 +114,12 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
     CheckBox mWashingCheck;
 
 
+    @BindView(R.id.checkBoxYesPickUp)
+    CheckBox mCheckBoxYesPickUp;
+
+    @BindView(R.id.checkBoxNoPickUp)
+    CheckBox mCheckBoxNoPickUp;
+
     CustomDateTimePicker custom;
 
     //Intialisation sharedpefrence
@@ -123,6 +129,8 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
     private CityItem rItem;
 
     private   CheckBox[] chkArray;
+
+    private CheckBox[] chkArray1;
 
     private CustomSpinerDealerAdapter customSpinerDealerAdapter;
 
@@ -212,6 +220,13 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
         chkArray[3].setOnClickListener(mListener);
 
 
+        chkArray1=new CheckBox[2];
+
+        chkArray1[0]=(CheckBox)findViewById(R.id.checkBoxYesPickUp);
+        chkArray1[0].setOnClickListener(mListener1);
+
+        chkArray1[1]=(CheckBox)findViewById(R.id.checkBoxNoPickUp);
+       chkArray1[1].setOnClickListener(mListener1);
 
 
 
@@ -417,6 +432,30 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
                     current.setChecked(true);
                 } else {
                     current.setChecked(false);
+                }
+            }
+
+
+        }
+    };
+
+
+    // check checkbox selection
+    private View.OnClickListener mListener1 = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+
+
+            final int checkId1=v.getId();
+
+            for (int i=0; i<chkArray1.length;i++){
+                final  CheckBox checkBox=chkArray1[i];
+
+                if (checkBox.getId()==checkId1){
+                    checkBox.setChecked(true);
+                } else {
+                    checkBox.setChecked(false);
                 }
             }
         }

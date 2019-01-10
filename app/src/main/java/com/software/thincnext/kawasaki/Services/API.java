@@ -32,6 +32,7 @@ public interface API {
     Call<JsonArray> VerifyOtp (@Body OtpRequest otpRequest);
 
 
+
     // To Get DashBoardInfo
     @POST("GetDashboardInfo")
     Call<JsonArray> ServiceType (@Body DashBoardInfo dashBoardInfo);

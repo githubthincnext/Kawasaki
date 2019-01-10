@@ -1,8 +1,13 @@
 package com.software.thincnext.kawasaki.Profile;
 
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,8 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.software.thincnext.kawasaki.Dialog.EditProfileDialog;
+import com.software.thincnext.kawasaki.Dialog.LogoutAppDialog;
 import com.software.thincnext.kawasaki.Models.Primary.Login;
-import com.software.thincnext.kawasaki.Primary.PrimaryActivity;
 import com.software.thincnext.kawasaki.R;
 import com.software.thincnext.kawasaki.Services.API;
 import com.software.thincnext.kawasaki.Services.Constants;
@@ -229,14 +235,27 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    @OnClick({ R.id.back_button})
+    @OnClick({ R.id.back_button,R.id.edit})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back_button:
                 finish();
                 break;
 
+            case R.id.edit:
+                editProfileDetails();
+                break;
+
         }
+    }
+
+    private void editProfileDetails() {
+
+        //Calling dialog
+        FragmentManager logoutManager = getFragmentManager();
+        EditProfileDialog editProfileDialog = new EditProfileDialog();
+        editProfileDialog.show(logoutManager, "EDIT_PROFILE_DIALOG");
+
     }
 
 }

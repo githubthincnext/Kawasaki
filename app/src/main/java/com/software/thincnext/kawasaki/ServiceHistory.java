@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-
 import com.software.thincnext.kawasaki.ServiceDetails.ServiceAccuracyFragment;
 import com.software.thincnext.kawasaki.ServiceDetails.ServiceHistoryFragment;
 import com.software.thincnext.kawasaki.ServiceDetails.ViewPageAdapter;

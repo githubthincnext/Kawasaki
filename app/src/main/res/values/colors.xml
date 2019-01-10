@@ -16,4 +16,5 @@
     <color name="colorProfileLine">#dad8d8</color>
     <color name="colorText">#1E1E1E</color>
     <color name="colorChild">#BEBEBE</color>
+    <color name="colorProfileBackground">#0000</color>
 </resources>

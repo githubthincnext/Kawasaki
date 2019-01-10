@@ -5,8 +5,16 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        // change datepicer dialog color
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
+
+
+
+
+
+
+
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -23,6 +31,10 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+
+  <!--  <style name="DialogTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>-->
 
     <style name="Theme.ToogleTheme" parent="Theme.AppCompat.Light">
         <!-- colorPrimary is used for the default action bar background -->
