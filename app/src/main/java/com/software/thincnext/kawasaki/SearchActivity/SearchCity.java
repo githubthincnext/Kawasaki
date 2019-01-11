@@ -78,6 +78,7 @@ public class SearchCity extends AppCompatActivity {
 
 
 
+
     }
 
     private void setCityList() {

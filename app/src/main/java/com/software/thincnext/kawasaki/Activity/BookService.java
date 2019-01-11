@@ -4,9 +4,11 @@ import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -21,6 +23,7 @@ import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -179,6 +182,11 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
         checkInternetConnection();
 
 
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter("custom-message"));
+
+
         mSpinnerDealer.setPrompt(  "Select");
         customSpinerDealerAdapter=new CustomSpinerDealerAdapter(this);
 
@@ -190,6 +198,7 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
         if (!Lmanager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();
         }
+
 
 
              //check googleApi
@@ -208,7 +217,7 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
 
        chkArray = new CheckBox[4];
 
-        chkArray[0] = (CheckBox) findViewById(R.id.FreeServiceCheckBox);
+      /*  chkArray[0] = (CheckBox) findViewById(R.id.FreeServiceCheckBox);
         chkArray[0].setOnClickListener(mListener);
         chkArray[1] = (CheckBox) findViewById(R.id.periodicServiceCheckBox); // what id do you have?
         chkArray[1].setOnClickListener(mListener);
@@ -217,7 +226,7 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
         chkArray[2].setOnClickListener(mListener);
 
         chkArray[3] = (CheckBox) findViewById(R.id.washingCheckBox); // what id do you have?
-        chkArray[3].setOnClickListener(mListener);
+        chkArray[3].setOnClickListener(mListener);  */
 
 
         chkArray1=new CheckBox[2];
@@ -238,6 +247,8 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
 
             }
         });
+
+
 
 
 
@@ -295,6 +306,17 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
 
 
     }
+
+
+    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            String ItemName = intent.getStringExtra("item");
+           // Toast.makeText(BookService.this,ItemName +" " ,Toast.LENGTH_SHORT).show();
+            mCityName.setText(ItemName);
+        }
+    };
 
     private void checkInternetConnection() {
         // check internet connection

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -127,11 +128,14 @@ public class CitylistAdapter extends RecyclerView.Adapter<CitylistAdapter.ViewHo
         @Override
         public void onClick(View view) {
 
-            Intent intent = new Intent();
-            intent.putExtra("selectedCity",rName.getText().toString());
-            Toast.makeText((Activity)context,rName.getText().toString(),Toast.LENGTH_SHORT).show();
-            ((Activity) context).setResult(RESULT_OK,intent);
+
+            Intent intent = new Intent("custom-message");
+
+            intent.putExtra("item",rName.getText().toString());
+            LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             ((Activity)context).finish();
+
+
 
 
 
