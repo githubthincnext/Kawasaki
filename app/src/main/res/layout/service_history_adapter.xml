@@ -119,7 +119,11 @@
                         android:textSize="@dimen/text_16"
                         tools:text="From Name" />
 
+
+
                 </LinearLayout>
+
+
         </LinearLayout>
 
 

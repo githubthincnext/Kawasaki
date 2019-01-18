@@ -91,8 +91,8 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
     @BindView(R.id.fromDatePicker)
     ImageView mFromDatePicker;
 
-    @BindView(R.id.to_date)
-    EditText mToDate;
+   // @BindView(R.id.to_date)
+    //EditText mToDate;
 
     @BindView(R.id.cityName)
     EditText mCityName;
@@ -217,7 +217,7 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
 
        chkArray = new CheckBox[4];
 
-      /*  chkArray[0] = (CheckBox) findViewById(R.id.FreeServiceCheckBox);
+       chkArray[0] = (CheckBox) findViewById(R.id.FreeServiceCheckBox);
         chkArray[0].setOnClickListener(mListener);
         chkArray[1] = (CheckBox) findViewById(R.id.periodicServiceCheckBox); // what id do you have?
         chkArray[1].setOnClickListener(mListener);
@@ -226,7 +226,7 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
         chkArray[2].setOnClickListener(mListener);
 
         chkArray[3] = (CheckBox) findViewById(R.id.washingCheckBox); // what id do you have?
-        chkArray[3].setOnClickListener(mListener);  */
+        chkArray[3].setOnClickListener(mListener);
 
 
         chkArray1=new CheckBox[2];
@@ -515,7 +515,7 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
     }
 
 
-    @OnClick({ R.id.back_button,R.id.fromDatePicker,R.id.todatePicker,R.id.save_continue,R.id.search_city})
+    @OnClick({ R.id.back_button,R.id.fromDatePicker,R.id.save_continue,R.id.search_city})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back_button:
@@ -528,10 +528,6 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
 
                 break;
 
-            case R.id.todatePicker:
-                //open To datePicker
-                openToDatePicker();
-                break;
 
             case R.id.save_continue:
 
@@ -561,7 +557,7 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
 
         String fromdate=mFromDate.getText().toString();
 
-        String toDate=mToDate.getText().toString();
+
 
         String city=mCityName.getText().toString();
 
@@ -583,10 +579,7 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
             return;
         }
 
-        if (TextUtils.isEmpty(toDate)){
-            Toast.makeText(BookService.this,R.string.please_give_to_date,Toast.LENGTH_SHORT).show();
-            return;
-        }
+
 
     }
 
@@ -615,7 +608,7 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
                         }
 
 
-                        mToDate.setText(hourOfDay + ":" + minute + " " + am_pm);
+                       // mToDate.setText(hourOfDay + ":" + minute + " " + am_pm);
                     }
                 }, mHour, mMinute, false);
         timePickerDialog.show();

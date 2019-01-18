@@ -62,8 +62,6 @@ public interface API {
     Call<JsonArray> getDealerList(@Body DealerRequest dealerRequest);
 
 
-
-
     //verify otp
   /*  @GET("Otp/verify")
     Call<OtpOutPut> verifyOtp(@Query("otp") String mOtp);*/

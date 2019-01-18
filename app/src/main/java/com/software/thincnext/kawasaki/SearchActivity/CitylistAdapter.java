@@ -130,7 +130,6 @@ public class CitylistAdapter extends RecyclerView.Adapter<CitylistAdapter.ViewHo
 
 
             Intent intent = new Intent("custom-message");
-
             intent.putExtra("item",rName.getText().toString());
             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             ((Activity)context).finish();

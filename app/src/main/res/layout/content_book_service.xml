@@ -238,7 +238,7 @@
                android:layout_marginRight="@dimen/space_16"
                android:textSize="@dimen/text_16"/>
 
-           <TextView
+          <!-- <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="@string/to_time"
@@ -246,7 +246,7 @@
                android:layout_marginTop="@dimen/space_10"
                android:layout_marginLeft="@dimen/space_16"
                android:layout_marginRight="@dimen/space_16"
-               android:textSize="@dimen/text_16"/>
+               android:textSize="@dimen/text_16"/>-->
 
        </LinearLayout>
 
@@ -278,7 +278,7 @@
                     android:background="@drawable/time_picker" />
             </LinearLayout>
 
-            <LinearLayout
+         <!--   <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -299,7 +299,7 @@
                     android:background="@drawable/time_picker"
                     android:id="@+id/todatePicker"
                     android:layout_gravity="end"/>
-            </LinearLayout>
+            </LinearLayout>-->
         </LinearLayout>
 
         <TextView

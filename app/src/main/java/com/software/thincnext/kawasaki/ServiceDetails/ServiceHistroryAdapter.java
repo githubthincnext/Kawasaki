@@ -59,6 +59,10 @@ public class ServiceHistroryAdapter extends BaseAdapter {
 
 
         String serviceDate=jsonElement.get("ServiceDate").getAsString();
+        String dealerName =jsonElement.get("DealershipName").getAsString();
+        String branchName=jsonElement.get("BranchName").getAsString();
+        String billAmount=jsonElement.get("BillAmount").getAsString();
+        String serviceAdviser=jsonElement.get("ServiceAdvisor").getAsString();
 
         holder.mService.setText(serviceNumber);
         holder.mDateService.setText(serviceDate);
