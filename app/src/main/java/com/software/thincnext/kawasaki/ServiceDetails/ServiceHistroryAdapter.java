@@ -66,6 +66,10 @@ public class ServiceHistroryAdapter extends BaseAdapter {
 
         holder.mService.setText(serviceNumber);
         holder.mDateService.setText(serviceDate);
+        holder.mDealerShipName.setText(dealerName);
+        holder.mBranchName.setText(branchName);
+        holder.mBillAmount.setText(billAmount);
+        holder.mServiceAdvisor.setText(serviceAdviser);
 
 
         return convertView;
@@ -78,6 +82,18 @@ public class ServiceHistroryAdapter extends BaseAdapter {
 
         @BindView(R.id.dateOfService)
         TextView mDateService;
+
+        @BindView(R.id.dealerShipName)
+        TextView mDealerShipName;
+
+        @BindView(R.id.branchName)
+        TextView mBranchName;
+
+        @BindView(R.id.service_advisor)
+                TextView mServiceAdvisor;
+
+        @BindView(R.id.billAmount)
+                TextView mBillAmount;
 
 
         ViewHolder(View view) {

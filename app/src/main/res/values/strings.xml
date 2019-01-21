@@ -45,6 +45,9 @@
     <string name="book_service">Book Service</string>
     <string name="service">Service</string>
     <string name="date_of_service">Date of service</string>
+    <string name="dealer_ship_name">Dealership Name</string>
+
+    <string name="branch_name">Branch Name</string>
     <string name="from_time">From Time</string>
     <string name="to_time">To Time</string>
     <string name="city">City</string>
@@ -111,5 +114,7 @@
     <string name="Info">Information</string>
     <string name="service_number">Service Number</string>
     <string name="update">Update</string>
+    <string name="bill_amount">Bill Amount</string>
+    <string name="service_advisor">ServiceAdvisor</string>
 
 </resources>

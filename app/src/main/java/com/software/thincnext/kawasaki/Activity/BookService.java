@@ -347,7 +347,7 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
 
   DealerRequest dealerRequest=new DealerRequest();
   String cityName=mCityName.getText().toString();
-  dealerRequest.setmCityName(cityName);
+  dealerRequest.setmCityName("Bangalore");
 
 
 
