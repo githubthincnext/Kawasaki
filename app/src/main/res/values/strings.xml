@@ -48,7 +48,7 @@
     <string name="dealer_ship_name">Dealership Name</string>
 
     <string name="branch_name">Branch Name</string>
-    <string name="from_time">From Time</string>
+    <string name="from_time">Time</string>
     <string name="to_time">To Time</string>
     <string name="city">City</string>
     <string name="dealer">Dealer</string>
@@ -62,8 +62,9 @@
     <string name="edit">Edit</string>
     <string name="bikes_registered">Bikes Registered</string>
     <string name="select_service_type">Please Select Service Type</string>
+    <string name="select_pickup_required">Please Select PickUpRequired</string>
     <string name="please_enter_date">Please Enter Date</string>
-    <string name="please_give_from_date">Please Give From Date</string>
+    <string name="please_give_time">Please Give Time</string>
     <string name="please_give_to_date">Please Give To Date</string>
     <string-array name="month_name">
         <item>January</item>
@@ -116,5 +117,6 @@
     <string name="update">Update</string>
     <string name="bill_amount">Bill Amount</string>
     <string name="service_advisor">ServiceAdvisor</string>
+    <string name="Feed_back">Feed Back</string>
 
 </resources>

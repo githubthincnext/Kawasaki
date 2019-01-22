@@ -228,6 +228,7 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:orientation="horizontal">
+
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
@@ -262,7 +263,7 @@
                 android:layout_marginLeft="@dimen/space_16"
                 android:layout_marginRight="@dimen/space_16">
             <EditText
-                android:id="@+id/from_date"
+                android:id="@+id/from_time"
                 android:editable="false"
                 android:layout_weight="3"
                 android:layout_width="0dp"
@@ -359,7 +360,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginLeft="@dimen/space_16"
-                android:entries="@array/dealer_list"
                 android:id="@+id/spinner_dealer">
 
             </Spinner>

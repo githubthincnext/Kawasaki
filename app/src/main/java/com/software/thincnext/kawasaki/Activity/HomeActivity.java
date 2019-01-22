@@ -21,6 +21,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -90,11 +91,6 @@ public class HomeActivity extends AppCompatActivity
 
     @BindView(R.id.constraintLayout)
     ConstraintLayout parentLayout;
-
-
-
-
-
 
 
     CircleImageView chooseImage;
@@ -281,6 +277,16 @@ public class HomeActivity extends AppCompatActivity
                             String message = jsonObject.get("Message").getAsString();
                             String messageType=jsonObject.get("MessageType").getAsString();
                             mServiceType.setText(message);
+
+                            if (messageType.equalsIgnoreCase("FD")){
+                                AlertDialog.Builder alert = new AlertDialog.Builder(HomeActivity.this);
+                               // alert.setTitle("FeedBack");
+                                // this is set the view from XML inside AlertDialog
+                                alert.setView(R.layout.feedback_layout);
+                                // disallow cancel of AlertDialog on click of back button and outside touch
+                              //  alert.setCancelable(false);
+                                alert.show();
+                            }
 
 
 

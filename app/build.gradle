@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.software.thincnext.kawasaki"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -36,7 +36,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:10.2.1'
     implementation 'com.google.android.gms:play-services-maps:10.2.1'
 
-   // implementation 'com.github.PhilJay:MPAndroidChart:v3.0.1'
+   // implementation 'com.github.sujithkanna:smileyrating:1.6.8'
+
+
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 

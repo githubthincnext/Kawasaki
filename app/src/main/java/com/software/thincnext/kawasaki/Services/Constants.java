@@ -4,10 +4,8 @@ public class Constants {
 
     public static final String IS_LOGGED_IN = "is_logged_in";
     public static final String PREFERENCE_NAME = "shared_preference";
-
-
     //client base url
-    public static final String BASE_URL= "http://kawasaki.gaindms.com:84/service.asmx/";
+    public static final String BASE_URL= "http://kawasaki.gaindms.com:84/Gaincustomerapp.asmx/";
 
     public static final String CUSTOMER_NAME="customer_name";
     public static final String EMAIL="email";

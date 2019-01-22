@@ -30,6 +30,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -44,6 +45,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.software.thincnext.Request.BookService.ServiceBookingRequest;
 import com.software.thincnext.kawasaki.DatePicker.CustomDateTimePicker;
 import com.software.thincnext.kawasaki.DealerAdapter.CustomSpinerDealerAdapter;
 import com.software.thincnext.kawasaki.Models.DealerLsit.DealerListResponse;
@@ -57,6 +59,7 @@ import com.software.thincnext.kawasaki.Services.ConnectionDetector;
 import com.software.thincnext.kawasaki.Services.Constants;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -67,6 +70,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -85,8 +89,8 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
     @BindView(R.id.datePicker)
     ImageView mDatePicker;
 
-    @BindView(R.id.from_date)
-    EditText mFromDate;
+    @BindView(R.id.from_time)
+    EditText mFromTime;
 
     @BindView(R.id.fromDatePicker)
     ImageView mFromDatePicker;
@@ -132,6 +136,8 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
     private CityItem rItem;
 
     private   CheckBox[] chkArray;
+
+    private  String DealerNae;
 
     private CheckBox[] chkArray1;
 
@@ -200,6 +206,25 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
         }
 
 
+        mSpinnerDealer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                JsonObject object = customSpinerDealerAdapter.getItem(position);
+                String name = object.get("DealerName").getAsString();
+                DealerNae=name;
+
+
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
 
              //check googleApi
         if (mGoogleApiClient == null) {
@@ -266,11 +291,12 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
                         String dateDisplay = "";
 
 
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.set(Calendar.MONTH, monthNumber);
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM");
-                        simpleDateFormat.setCalendar(calendar);
-                        String monthName = simpleDateFormat.format(calendar.getTime());
+                      //  Calendar calendar = Calendar.getInstance();
+                        //calendar.set(Calendar.MONTH, monthNumber);
+
+                      //  SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM");
+                        //simpleDateFormat.setCalendar(calendar);
+                        //String monthName = simpleDateFormat.format(calendar.getTime());
 
 
                         if (date < 10) {
@@ -279,14 +305,14 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
                             dateDisplay = String.valueOf(date);
                         }
                         if (monthNumber < 10) {
-                            tempDayOfMonth =   String.valueOf(monthName );
+                            tempDayOfMonth =  "0"+ String.valueOf(monthNumber);
                         } else {
-                            tempDayOfMonth = String.valueOf(monthName );
+                            tempDayOfMonth = String.valueOf(monthNumber);
                         }
 
 
-                        mDate.setText(dateDisplay
-                                + " " + (tempDayOfMonth) + " " + year
+                        mDate.setText(tempDayOfMonth
+                                + "/ " + (dateDisplay) + "/" + year
 
                         );
 
@@ -374,17 +400,20 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
 
                             JsonObject jsonObject = jsonResponse.body().get(i).getAsJsonObject();
                             String message = jsonObject.get("Message").getAsString();
-                            Log.e("MEAAGE",message);
-                            if (message.equalsIgnoreCase("-1,Data not found")) {
-                                Toast.makeText(BookService.this," Dealer List Not Found",Toast.LENGTH_SHORT).show();
+                            Log.e("MESSAGE",message);
+                            if (message.equalsIgnoreCase("1,Success")) {
+
+                                customSpinerDealerAdapter.updateCategeryItems(jsonResponse.body().getAsJsonArray());
+                                customSpinerDealerAdapter.notifyDataSetChanged();
+
+
 
                             }
                         }
                     } else {
 
-                        customSpinerDealerAdapter.updateCategeryItems(jsonResponse.body().getAsJsonArray());
-                        customSpinerDealerAdapter.notifyDataSetChanged();
 
+                        Toast.makeText(BookService.this," Dealer List Not Found",Toast.LENGTH_SHORT).show();
 
 
                         if (mProgress != null) {
@@ -476,6 +505,10 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
 
                 if (checkBox.getId()==checkId1){
                     checkBox.setChecked(true);
+
+
+
+
                 } else {
                     checkBox.setChecked(false);
                 }
@@ -555,7 +588,7 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
 
         String date=mDate.getText().toString();
 
-        String fromdate=mFromDate.getText().toString();
+        String fromTime=mFromTime.getText().toString();
 
 
 
@@ -564,8 +597,43 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
 //        String dealerList=mSpinnerDealer.getSelectedItem().toString();
         boolean checkBox=mCheckFreeService.isChecked()||mCheckPeriodicService.isChecked()||mBreakDownCheck.isChecked()||mWashingCheck.isChecked();
 
+
+        String service = "";
+        if (mCheckBoxNoPickUp.isChecked()) {
+            service = service + "" + mCheckBoxNoPickUp.getText();
+
+        }
+
+        if (mCheckBoxYesPickUp.isChecked()){
+            service=service+""+mCheckBoxYesPickUp.getText();
+
+        }
+
+
+        String pickUp="";
+        if (mCheckFreeService.isChecked()){
+            pickUp=pickUp+""+mCheckFreeService.getText();
+        }
+        if (mCheckPeriodicService.isChecked()){
+            pickUp=pickUp+""+mCheckPeriodicService.getText();
+        }
+
+        if (mBreakDownCheck.isChecked()){
+            pickUp=pickUp+""+mBreakDownCheck.getText();
+        }
+
+        if (mWashingCheck.isChecked()){
+            pickUp=pickUp+""+mWashingCheck.getText();
+        }
+
+        boolean checkBoxPickUp= mCheckBoxYesPickUp.isChecked()||mCheckBoxNoPickUp.isChecked();
         if (!checkBox==true){
             Toast.makeText(BookService.this,R.string.select_service_type,Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!checkBoxPickUp==true){
+            Toast.makeText(BookService.this,R.string.select_pickup_required,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -574,14 +642,115 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
             return;
         }
 
-        if (TextUtils.isEmpty(fromdate)){
-            Toast.makeText(BookService.this,R.string.please_give_from_date,Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(fromTime)){
+            Toast.makeText(BookService.this,R.string.please_give_time,Toast.LENGTH_SHORT).show();
             return;
         }
 
+        //Checking internet connection
+        boolean isInternetPresent = connectionDetector.isConnectingToInternet();
 
+
+
+        Toast.makeText(BookService.this,DealerNae,Toast.LENGTH_SHORT).show();
+        String standByvehicle="Yes";
+        String doorStepSevice="Yes";
+
+
+        if (isInternetPresent) {
+
+            //Calling service booking
+
+            callServiceBookingService(service,pickUp,date,fromTime,city,DealerNae,doorStepSevice,standByvehicle);
+        } else {
+
+            Snackbar snackbar = Snackbar
+                    .make(parentLayout, "No internet connection! Please turn ON data or wifi", Snackbar.LENGTH_LONG);
+
+            snackbar.show();
+        }
+    }
+
+    private void callServiceBookingService(String service, String pickUp, String date, String fromTime, String city, String DealerName,String doorStepSevice,String standByvehicle) {
+
+        String RegistrationNo=sharedPreferences.getString(Constants.REGISTER_NUMBER,"");
+
+
+        showProgressDialog(getResources().getString(R.string.please_wait));
+
+        ServiceBookingRequest request = new ServiceBookingRequest();
+
+      request.setmSerType(pickUp);
+      request.setmPickupRe(service);
+      request.setmSerDate(date);
+      request.setmDealerNumber("66");
+      request.setmRegNumber(RegistrationNo);
+      request.setmDoorStep(doorStepSevice);
+      request.setmStandByVe(standByvehicle);
+
+
+        builder = getHttpClient();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(GsonConverterFactory.create()).client(builder.build()).build();
+        API gi = retrofit.create(API.class);
+
+        Call<ResponseBody> call = (Call<ResponseBody>) gi.updateBookingDetails(request);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                if (mProgress != null) {
+                    mProgress.dismiss();
+                }
+
+                if (response.code() == 200) {
+
+                    // successfull message
+                    Toast.makeText(BookService.this,response.message(),Toast.LENGTH_SHORT).show();
+
+                    return;
+
+                }
+
+                if (mProgress != null) {
+                    mProgress.dismiss();
+                }
+                //If status code is not 200
+                else {
+                    Snackbar snackbar = Snackbar
+                            .make(parentLayout, "Something went wrong! Try again", Snackbar.LENGTH_LONG);
+
+                    snackbar.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                Snackbar snackbar = Snackbar
+                        .make(parentLayout, "Something went wrong! Try again", Snackbar.LENGTH_LONG);
+
+                snackbar.show();
+
+
+            }
+
+        });
+
+
+
+
+
+
+        Toast.makeText(BookService.this,service,Toast.LENGTH_SHORT).show();
+        Toast.makeText(BookService.this,pickUp,Toast.LENGTH_SHORT).show();
+        Toast.makeText(BookService.this,date,Toast.LENGTH_SHORT).show();
+        Toast.makeText(BookService.this,fromTime,Toast.LENGTH_SHORT).show();
+        Toast.makeText(BookService.this,city,Toast.LENGTH_SHORT).show();
+       Toast.makeText(BookService.this,DealerName,Toast.LENGTH_SHORT).show();
 
     }
+
 
     private void openToDatePicker() {
         // Get Current Time
@@ -642,7 +811,7 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
                         }
 
 
-                        mFromDate.setText(hourOfDay + ":" + minute + " " + am_pm);
+                        mFromTime.setText(hourOfDay + ":" + minute + " " + am_pm);
                     }
                 }, mHour, mMinute, false);
         timePickerDialog.show();

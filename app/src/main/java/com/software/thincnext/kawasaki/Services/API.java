@@ -3,6 +3,7 @@ package com.software.thincnext.kawasaki.Services;
 
 
 import com.google.gson.JsonArray;
+import com.software.thincnext.Request.BookService.ServiceBookingRequest;
 import com.software.thincnext.kawasaki.ApiRequest.DashBoardInfo;
 import com.software.thincnext.kawasaki.ApiRequest.OtpRequest;
 import com.software.thincnext.kawasaki.Models.DealerLsit.DealerRequest;
@@ -14,6 +15,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 
@@ -61,6 +63,12 @@ public interface API {
     @POST("GetDealerList")
     Call<JsonArray> getDealerList(@Body DealerRequest dealerRequest);
 
+
+
+
+    //save booking details
+    @POST("SaveServiceBooking")
+    Call<ResponseBody> updateBookingDetails(@Body ServiceBookingRequest serviceBookingRequest);
 
     //verify otp
   /*  @GET("Otp/verify")
