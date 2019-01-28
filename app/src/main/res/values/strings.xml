@@ -118,5 +118,6 @@
     <string name="bill_amount">Bill Amount</string>
     <string name="service_advisor">ServiceAdvisor</string>
     <string name="Feed_back">Feed Back</string>
+    <string name="submit">Submit</string>
 
 </resources>

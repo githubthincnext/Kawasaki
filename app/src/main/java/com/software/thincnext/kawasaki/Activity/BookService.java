@@ -305,9 +305,9 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
                             dateDisplay = String.valueOf(date);
                         }
                         if (monthNumber < 10) {
-                            tempDayOfMonth =  "0"+ String.valueOf(monthNumber);
+                            tempDayOfMonth =  "0"+ String.valueOf(monthNumber+1);
                         } else {
-                            tempDayOfMonth = String.valueOf(monthNumber);
+                            tempDayOfMonth = String.valueOf(monthNumber+1);
                         }
 
 
@@ -680,7 +680,7 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
 
         ServiceBookingRequest request = new ServiceBookingRequest();
 
-      request.setmSerType(pickUp);
+      request.setmSerType("PAID Service");
       request.setmPickupRe(service);
       request.setmSerDate(date);
       request.setmDealerNumber("66");

@@ -235,16 +235,14 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    @OnClick({ R.id.back_button,R.id.edit})
+    @OnClick({ R.id.back_button})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back_button:
                 finish();
                 break;
 
-            case R.id.edit:
-                editProfileDetails();
-                break;
+
 
         }
     }

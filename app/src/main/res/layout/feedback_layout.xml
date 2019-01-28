@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/layoutwhite_background"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -36,6 +36,74 @@
     </RelativeLayout>
 
 
+
+
+
+    <com.yugansh.tyagi.smileyrating.SmileyRatingView
+        android:id="@+id/smiley_view"
+        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+
+        android:layout_height="200dp"
+        app:default_rating="1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/smiley_view"
+        android:layout_marginTop="@dimen/space_10"
+        android:layout_gravity="center"
+        android:text="Okay"
+        android:textStyle="bold"
+        android:id="@+id/rating_text"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/smiley_view"
+        android:layout_marginTop="@dimen/space_30"
+        android:layout_gravity="center"
+        android:text="Rate your Experience"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
+
+    <RatingBar
+        android:id="@+id/rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/smiley_view"
+        android:layout_centerHorizontal="true"
+        android:numStars="5"
+        android:layout_gravity="center"
+        android:rating="1"
+        android:stepSize="1"
+        android:theme="@style/RatingBar" />
+
+    <EditText
+        android:id="@+id/review_box"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@id/rating_bar"
+        android:layout_margin="24dp"
+        android:background="@drawable/rounded_bg"
+        android:hint="Write your Review"
+        android:padding="12dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_40"
+        android:layout_below="@id/review_box"
+        android:layout_margin="24dp"
+        android:text="@string/submit"
+        android:id="@+id/submit"
+        android:elevation="4dp"
+        android:background="@color/rating_active"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 <!--    <com.hsalf.smilerating.SmileRating
         android:id="@+id/ratingView"
         android:layout_width="match_parent"

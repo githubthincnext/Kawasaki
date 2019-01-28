@@ -11,7 +11,6 @@ public class Constants {
     public static final String EMAIL="email";
     public static final String MOBILE_NUMBER="mobile_number";
     public static final String REGISTER_NUMBER="RegistrationNo";
-
     public static final String OTP="OTP";
     public static final String OTP_STATUS="OTPStatus";
 

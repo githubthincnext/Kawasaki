@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/colorWhite">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_24"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Feedback"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_marginLeft="@dimen/space_8"
+            android:layout_marginRight="@dimen/space_8"
+            android:textSize="@dimen/text_20" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_24"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="How was your experience?"
+            android:textColor="@color/colorBlack"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginLeft="@dimen/space_8"
+            android:layout_marginRight="@dimen/space_8"
+            android:textSize="@dimen/text_16" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_10"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/ll_feedBackDialog_rateOne"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_feedBackDialog_rateOne"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/space_48"
+                    android:src="@drawable/ic_rate_one_grey"
+                    android:scaleType="fitCenter"/>
+
+                <TextView
+                    android:id="@+id/tv_feedBackDialog_rateOne"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Angry"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:padding="@dimen/space_3"
+                    android:textSize="@dimen/text_16"
+                    android:textColor="@color/colorGrey"
+                    android:gravity="center"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_feedBackDialog_rateTwo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_feedBackDialog_rateTwo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/space_48"
+                    android:src="@drawable/ic_rate_two_grey"
+                    android:scaleType="fitCenter"/>
+
+                <TextView
+                    android:id="@+id/tv_feedBackDialog_rateTwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bad"
+                    android:textColor="@color/colorGrey"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:padding="@dimen/space_3"
+                    android:textSize="@dimen/text_16"
+                    android:gravity="center"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_feedBackDialog_rateThree"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_feedBackDialog_rateThree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/space_48"
+                    android:src="@drawable/ic_rate_three_grey"
+                    android:scaleType="fitCenter"/>
+
+                <TextView
+                    android:id="@+id/tv_feedBackDialog_rateThree"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Okay"
+                    android:textColor="@color/colorGrey"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:padding="@dimen/space_3"
+                    android:textSize="@dimen/text_16"
+                    android:gravity="center"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_feedBackDialog_rateFour"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_feedBackDialog_rateFour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/space_48"
+                    android:src="@drawable/ic_rate_four_grey"
+                    android:scaleType="fitCenter"/>
+
+                <TextView
+                    android:id="@+id/tv_feedBackDialog_rateFour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Good"
+                    android:textColor="@color/colorGrey"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:padding="@dimen/space_3"
+                    android:textSize="@dimen/text_16"
+                    android:gravity="center"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_feedBackDialog_rateFive"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_feedBackDialog_rateFive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/space_48"
+                    android:src="@drawable/ic_rate_five_grey"
+                    android:scaleType="fitCenter"/>
+
+                <TextView
+                    android:id="@+id/tv_feedBackDialog_rateFive"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Great"
+                    android:textColor="@color/colorGrey"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:padding="@dimen/space_3"
+                    android:textSize="@dimen/text_16"
+                    android:gravity="center"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_feedBackDialog_rateBox"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="top"
+            android:layout_marginTop="@dimen/space_24"
+            android:background="@drawable/rounded_bg"
+            android:hint="Write your Review"
+            android:padding="12dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_40"
+            android:layout_below="@id/review_box"
+            android:layout_marginTop="@dimen/space_24"
+            android:text="@string/submit"
+            android:id="@+id/btn_feedBackDialog_submit"
+            android:elevation="4dp"
+            android:background="@color/rating_active"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

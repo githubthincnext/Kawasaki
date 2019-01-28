@@ -104,7 +104,7 @@ public class InboxActivity extends AppCompatActivity {
 
         if (isInternetPresent) {
            // call InboxDetails
-            callInboxDetails();
+          //  callInboxDetails();
 
         } else {
 

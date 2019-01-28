@@ -17,4 +17,15 @@
     <color name="colorText">#1E1E1E</color>
     <color name="colorChild">#BEBEBE</color>
     <color name="colorProfileBackground">#0000</color>
+
+    <color name="rating_inactive">#929292</color>
+    <color name="rating_active">#f8b83b</color>
+
+
+
+    <color name="colorRed">#D80027</color>
+    <color name="colorOrange">#f27500</color>
+    <color name="colorYellow">#e9b409</color>
+    <color name="colorDarkGreen">#4E911D</color>
+
 </resources>

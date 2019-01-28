@@ -2,6 +2,9 @@ package com.software.thincnext.kawasaki.Activity;
 
 
 import android.Manifest;
+
+
+import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -21,23 +24,30 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+
+
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.software.thincnext.kawasaki.ApiRequest.DashBoardInfo;
+import com.software.thincnext.kawasaki.DataBase.DatabseHelper;
 import com.software.thincnext.kawasaki.Dialog.ChangePicDialog;
 import com.software.thincnext.kawasaki.Dialog.ExitAppDialog;
+import com.software.thincnext.kawasaki.Dialog.FeedbackDialog;
 import com.software.thincnext.kawasaki.Dialog.LogoutAppDialog;
 import com.software.thincnext.kawasaki.Inbox.InboxActivity;
 import com.software.thincnext.kawasaki.Profile.ProfileActivity;
@@ -46,6 +56,8 @@ import com.software.thincnext.kawasaki.ServiceHistory;
 import com.software.thincnext.kawasaki.Services.API;
 import com.software.thincnext.kawasaki.Services.ConnectionDetector;
 import com.software.thincnext.kawasaki.Services.Constants;
+import com.yugansh.tyagi.smileyrating.SmileyRatingView;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +88,7 @@ public class HomeActivity extends AppCompatActivity
     private static final String TAG = HomeActivity.class.getSimpleName();
 
     private SharedPreferences sharedPreferences;
-
+    private DatabseHelper databseHelper;
 
 
 
@@ -131,7 +143,8 @@ public class HomeActivity extends AppCompatActivity
         checkInternetConnection();
 
 
-
+        databseHelper = new DatabseHelper(getApplicationContext());
+        databseHelper.createDataBase();
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -164,7 +177,7 @@ public class HomeActivity extends AppCompatActivity
         String mobNumber=sharedPreferences.getString(Constants.MOBILE_NUMBER,"");
 
 
-        chooseImage = (CircleImageView) header.findViewById(R.id.imageView);
+        chooseImage = (CircleImageView)findViewById(R.id.imageView);
         HeaderCustomerName=(TextView)header.findViewById(R.id.customer_name);
         HeaderMobNumber=(TextView)header.findViewById(R.id.mobile_number);
         frameLayout=(FrameLayout)header.findViewById(R.id.frame_layout);
@@ -241,7 +254,7 @@ public class HomeActivity extends AppCompatActivity
         //progress dialog
         showProgressDialog(getResources().getString(R.string.please_wait));
 
-        String RegistrationNo=sharedPreferences.getString(Constants.REGISTER_NUMBER,"");
+        final String RegistrationNo=sharedPreferences.getString(Constants.REGISTER_NUMBER,"");
 
          //   Toast.makeText(HomeActivity.this,RegistrationNo,Toast.LENGTH_SHORT).show();
 
@@ -278,14 +291,14 @@ public class HomeActivity extends AppCompatActivity
                             String messageType=jsonObject.get("MessageType").getAsString();
                             mServiceType.setText(message);
 
-                            if (messageType.equalsIgnoreCase("FD")){
-                                AlertDialog.Builder alert = new AlertDialog.Builder(HomeActivity.this);
-                               // alert.setTitle("FeedBack");
-                                // this is set the view from XML inside AlertDialog
-                                alert.setView(R.layout.feedback_layout);
-                                // disallow cancel of AlertDialog on click of back button and outside touch
-                              //  alert.setCancelable(false);
-                                alert.show();
+                            if (messageType.equalsIgnoreCase("FD")) {
+
+                                if (!databseHelper.checkRegistrationNumber(RegistrationNo))
+                                {
+                                    FragmentManager feedbackManager = getFragmentManager();
+                                    FeedbackDialog feedbackDialog = new FeedbackDialog();
+                                    feedbackDialog.show(feedbackManager, "FEEDBACK_DIALOG");
+                                }
                             }
 
 
@@ -829,5 +842,12 @@ public class HomeActivity extends AppCompatActivity
         startActivity(new Intent(HomeActivity.this, Register.class));
         finish();
 
+    }
+
+    public void saveRating(String ratingText, int selectedRating) {
+
+        String RegistrationNo=sharedPreferences.getString(Constants.REGISTER_NUMBER,"");
+
+        databseHelper.insertRating(RegistrationNo,selectedRating,ratingText);
     }
 }
