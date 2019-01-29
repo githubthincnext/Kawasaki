@@ -26,17 +26,21 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -121,11 +125,8 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
     CheckBox mWashingCheck;
 
 
-    @BindView(R.id.checkBoxYesPickUp)
-    CheckBox mCheckBoxYesPickUp;
-
-    @BindView(R.id.checkBoxNoPickUp)
-    CheckBox mCheckBoxNoPickUp;
+    @BindView(R.id.switchButton)
+    SwitchCompat switchCompat;
 
     CustomDateTimePicker custom;
 
@@ -166,6 +167,9 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
     //internet connection
     private ConnectionDetector connectionDetector;
 
+    //
+    private String switchButtonOn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -205,6 +209,19 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
             buildAlertMessageNoGps();
         }
 
+        //switchButton OnSelectedListener
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                switch (compoundButton.getId()) {
+                    case R.id.switchButton:
+                        Log.i("switch_compat", isChecked + "");
+                        switchButtonOn="Yes";
+                        break;
+
+                }
+            }
+        });
 
         mSpinnerDealer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -256,11 +273,7 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
 
         chkArray1=new CheckBox[2];
 
-        chkArray1[0]=(CheckBox)findViewById(R.id.checkBoxYesPickUp);
-        chkArray1[0].setOnClickListener(mListener1);
 
-        chkArray1[1]=(CheckBox)findViewById(R.id.checkBoxNoPickUp);
-       chkArray1[1].setOnClickListener(mListener1);
 
 
 
@@ -598,17 +611,6 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
         boolean checkBox=mCheckFreeService.isChecked()||mCheckPeriodicService.isChecked()||mBreakDownCheck.isChecked()||mWashingCheck.isChecked();
 
 
-        String service = "";
-        if (mCheckBoxNoPickUp.isChecked()) {
-            service = service + "" + mCheckBoxNoPickUp.getText();
-
-        }
-
-        if (mCheckBoxYesPickUp.isChecked()){
-            service=service+""+mCheckBoxYesPickUp.getText();
-
-        }
-
 
         String pickUp="";
         if (mCheckFreeService.isChecked()){
@@ -626,16 +628,9 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
             pickUp=pickUp+""+mWashingCheck.getText();
         }
 
-        boolean checkBoxPickUp= mCheckBoxYesPickUp.isChecked()||mCheckBoxNoPickUp.isChecked();
-        if (!checkBox==true){
-            Toast.makeText(BookService.this,R.string.select_service_type,Toast.LENGTH_SHORT).show();
-            return;
-        }
 
-        if (!checkBoxPickUp==true){
-            Toast.makeText(BookService.this,R.string.select_pickup_required,Toast.LENGTH_SHORT).show();
-            return;
-        }
+
+
 
         if (TextUtils.isEmpty(date)){
             Toast.makeText(BookService.this,R.string.please_enter_date,Toast.LENGTH_SHORT).show();
@@ -655,7 +650,10 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
         Toast.makeText(BookService.this,DealerNae,Toast.LENGTH_SHORT).show();
         String standByvehicle="Yes";
         String doorStepSevice="Yes";
+        String service=switchButtonOn;
 
+
+        Toast.makeText(BookService.this,service,Toast.LENGTH_SHORT).show();
 
         if (isInternetPresent) {
 

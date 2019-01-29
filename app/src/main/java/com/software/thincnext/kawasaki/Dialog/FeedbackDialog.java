@@ -41,9 +41,9 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
 
         View rootView = inflater.inflate(R.layout.layout_feedback_dialog, null);
 
-        rateOneLayout = rootView.findViewById(R.id.ll_feedBackDialog_rateOne);
+       /* rateOneLayout = rootView.findViewById(R.id.ll_feedBackDialog_rateOne);
         rateOneIcon = rootView.findViewById(R.id.iv_feedBackDialog_rateOne);
-        rateOneText = rootView.findViewById(R.id.tv_feedBackDialog_rateOne);
+        rateOneText = rootView.findViewById(R.id.tv_feedBackDialog_rateOne);*/
 
         rateTwoLayout = rootView.findViewById(R.id.ll_feedBackDialog_rateTwo);
         rateTwoIcon = rootView.findViewById(R.id.iv_feedBackDialog_rateTwo);
@@ -57,9 +57,9 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
         rateFourIcon = rootView.findViewById(R.id.iv_feedBackDialog_rateFour);
         rateFourText = rootView.findViewById(R.id.tv_feedBackDialog_rateFour);
 
-        rateFiveLayout = rootView.findViewById(R.id.ll_feedBackDialog_rateFive);
+       /* rateFiveLayout = rootView.findViewById(R.id.ll_feedBackDialog_rateFive);
         rateFiveIcon = rootView.findViewById(R.id.iv_feedBackDialog_rateFive);
-        rateFiveText = rootView.findViewById(R.id.tv_feedBackDialog_rateFive);
+        rateFiveText = rootView.findViewById(R.id.tv_feedBackDialog_rateFive);  */
 
         rating = rootView.findViewById(R.id.et_feedBackDialog_rateBox);
         submit = rootView.findViewById(R.id.btn_feedBackDialog_submit);
@@ -85,7 +85,7 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
 
         switch (v.getId()) {
 
-            case R.id.ll_feedBackDialog_rateOne:
+         /*   case R.id.ll_feedBackDialog_rateOne:
 
                 //Setting values
                 rateOneIcon.setImageResource(R.drawable.ic_rate_one_yellow);
@@ -106,7 +106,7 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
                 selectedRating = 1;
 
 
-                break;
+                break;*/
 
             case R.id.ll_feedBackDialog_rateTwo:
 
@@ -126,7 +126,7 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
                 rateFiveIcon.setImageResource(R.drawable.ic_rate_five_grey);
                 rateFiveText.setTextColor(getResources().getColor(R.color.colorGrey));
 
-                selectedRating = 2;
+                selectedRating = 1;
 
                 break;
 
@@ -148,7 +148,7 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
                 rateFiveIcon.setImageResource(R.drawable.ic_rate_five_grey);
                 rateFiveText.setTextColor(getResources().getColor(R.color.colorGrey));
 
-                selectedRating = 3;
+                selectedRating = 2;
 
                 break;
 
@@ -170,11 +170,11 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
                 rateFiveIcon.setImageResource(R.drawable.ic_rate_five_grey);
                 rateFiveText.setTextColor(getResources().getColor(R.color.colorGrey));
 
-                selectedRating = 4;
+                selectedRating = 3;
 
                 break;
 
-            case R.id.ll_feedBackDialog_rateFive:
+         /*   case R.id.ll_feedBackDialog_rateFive:
 
                 //Setting values
                 rateFiveIcon.setImageResource(R.drawable.ic_rate_five_yellow);
@@ -194,7 +194,7 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
 
                 selectedRating = 5;
 
-                break;
+                break;*/
 
             case R.id.btn_feedBackDialog_submit:
 

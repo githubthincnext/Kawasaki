@@ -24,7 +24,7 @@
                 android:textSize="@dimen/text_16"
                 android:textColor="@color/colorBlack"/>
 
-            <View android:background="@color/colorBlack"
+            <View android:background="@color/colorGrey"
                 android:layout_width = "match_parent"
                 android:layout_height="1dp"/>
         </LinearLayout>

@@ -83,11 +83,15 @@
         <item>Kawasaki Limited</item>
     </string-array>
 
+    <style name="Color1SwitchStyle">
+        <item name="colorControlActivated">@color/colorPrimary</item>
+    </style>
+
+
     <string name="free_service">Free Service</string>
     <string name="periodic_service">Periodic Service</string>
     <string name="breakdown_repair">Breakdown \nRepair</string>
     <string name="washing">Washing</string>
-
     <string name="title_activity_sos">SOS</string>
     <string name="title_activity_inbox">InboxActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>

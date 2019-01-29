@@ -3,6 +3,7 @@ package com.software.thincnext.kawasaki.DatePicker;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -12,9 +13,14 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ViewSwitcher;
 
+import com.software.thincnext.kawasaki.R;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import static android.graphics.Color.TRANSPARENT;
+import static android.graphics.Color.green;
 
 public class CustomDateTimePicker implements View.OnClickListener {
 
@@ -112,6 +118,9 @@ public class CustomDateTimePicker implements View.OnClickListener {
         btn_set = new Button(activity);
         btn_set.setLayoutParams(button_params);
         btn_set.setText("Set");
+        btn_set.setBackgroundColor(Color.parseColor("#202F3C"));
+        btn_set.setTextColor(Color.parseColor("#FFFFFF"));
+
         btn_set.setId(SET);
         btn_set.setOnClickListener(this);
 
@@ -119,6 +128,8 @@ public class CustomDateTimePicker implements View.OnClickListener {
         btn_cancel.setLayoutParams(button_params);
         btn_cancel.setText("Cancel");
         btn_cancel.setId(CANCEL);
+        btn_cancel.setBackgroundColor(Color.parseColor("#202F3C"));
+        btn_cancel.setTextColor(Color.parseColor("#FFFFFF"));
         btn_cancel.setOnClickListener(this);
 
         linear_bottom.addView(btn_set);
