@@ -62,14 +62,11 @@ import com.software.thincnext.kawasaki.Services.API;
 import com.software.thincnext.kawasaki.Services.ConnectionDetector;
 import com.software.thincnext.kawasaki.Services.Constants;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -647,13 +644,13 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
 
 
 
-        Toast.makeText(BookService.this,DealerNae,Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(BookService.this,DealerNae,Toast.LENGTH_SHORT).show();
         String standByvehicle="Yes";
         String doorStepSevice="Yes";
         String service=switchButtonOn;
 
 
-        Toast.makeText(BookService.this,service,Toast.LENGTH_SHORT).show();
+       // Toast.makeText(BookService.this,service,Toast.LENGTH_SHORT).show();
 
         if (isInternetPresent) {
 
@@ -704,7 +701,11 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
                 if (response.code() == 200) {
 
                     // successfull message
-                    Toast.makeText(BookService.this,response.message(),Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(BookService.this,response.message(),Toast.LENGTH_SHORT).show();
+
+                    // Go to Enter Remarks Page
+                     Intent intent=new Intent(BookService.this,RemarksActivity.class);
+                     startActivity(intent);
 
                     return;
 
@@ -740,12 +741,12 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
 
 
 
-        Toast.makeText(BookService.this,service,Toast.LENGTH_SHORT).show();
+      /*  Toast.makeText(BookService.this,service,Toast.LENGTH_SHORT).show();
         Toast.makeText(BookService.this,pickUp,Toast.LENGTH_SHORT).show();
         Toast.makeText(BookService.this,date,Toast.LENGTH_SHORT).show();
         Toast.makeText(BookService.this,fromTime,Toast.LENGTH_SHORT).show();
         Toast.makeText(BookService.this,city,Toast.LENGTH_SHORT).show();
-       Toast.makeText(BookService.this,DealerName,Toast.LENGTH_SHORT).show();
+       Toast.makeText(BookService.this,DealerName,Toast.LENGTH_SHORT).show();*/
 
     }
 

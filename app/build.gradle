@@ -36,7 +36,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:10.2.1'
     implementation 'com.google.android.gms:play-services-maps:10.2.1'
 
-  //  implementation 'com.github.sujithkanna:smileyrating:8.5.1
+    //  implementation 'com.github.sujithkanna:smileyrating:8.5.1
     implementation 'com.github.YuganshT79:Smiley-Rating:1.0.0'
     implementation 'com.github.sujithkanna:smileyrating:1.6.8'
 

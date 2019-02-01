@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -49,6 +51,8 @@ import com.software.thincnext.kawasaki.Dialog.ChangePicDialog;
 import com.software.thincnext.kawasaki.Dialog.ExitAppDialog;
 import com.software.thincnext.kawasaki.Dialog.FeedbackDialog;
 import com.software.thincnext.kawasaki.Dialog.LogoutAppDialog;
+import com.software.thincnext.kawasaki.Dialog.PicDisplayDialog;
+import com.software.thincnext.kawasaki.DisplayImage.DisplaySelectedImage;
 import com.software.thincnext.kawasaki.Inbox.InboxActivity;
 import com.software.thincnext.kawasaki.Profile.ProfileActivity;
 import com.software.thincnext.kawasaki.R;
@@ -58,6 +62,7 @@ import com.software.thincnext.kawasaki.Services.ConnectionDetector;
 import com.software.thincnext.kawasaki.Services.Constants;
 import com.yugansh.tyagi.smileyrating.SmileyRatingView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -609,9 +614,24 @@ public class HomeActivity extends AppCompatActivity
             else if (requestCode == REQUEST_GALLERY_PROFILEIMAGE) {
 
                 try {
-                    Bitmap selectedBitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+                    final Bitmap selectedBitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
 
-                    chooseImage.setImageBitmap(selectedBitmap);
+
+
+
+                       Intent intent=new Intent(HomeActivity.this, DisplaySelectedImage.class);
+                      startActivity(intent);
+
+
+
+                            chooseImage.setImageBitmap(selectedBitmap);
+
+
+
+
+
+
+
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -849,5 +869,8 @@ public class HomeActivity extends AppCompatActivity
         String RegistrationNo=sharedPreferences.getString(Constants.REGISTER_NUMBER,"");
 
         databseHelper.insertRating(RegistrationNo,selectedRating,ratingText);
+    }
+
+    public void displayImage() {
     }
 }

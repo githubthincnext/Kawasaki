@@ -66,11 +66,11 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
 
 
         //Setting onclick listner
-        rateOneLayout.setOnClickListener(this);
+        //rateOneLayout.setOnClickListener(this);
         rateTwoLayout.setOnClickListener(this);
         rateThreeLayout.setOnClickListener(this);
         rateFourLayout.setOnClickListener(this);
-        rateFiveLayout.setOnClickListener(this);
+      //  rateFiveLayout.setOnClickListener(this);
         submit.setOnClickListener(this);
 
 
@@ -114,8 +114,8 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
                 rateTwoIcon.setImageResource(R.drawable.ic_rate_two_yellow);
                 rateTwoText.setTextColor(getResources().getColor(R.color.colorOrange));
 
-                rateOneIcon.setImageResource(R.drawable.ic_rate_one_grey);
-                rateOneText.setTextColor(getResources().getColor(R.color.colorGrey));
+//                rateOneIcon.setImageResource(R.drawable.ic_rate_one_grey);
+  //              rateOneText.setTextColor(getResources().getColor(R.color.colorGrey));
 
                 rateThreeIcon.setImageResource(R.drawable.ic_rate_three_grey);
                 rateThreeText.setTextColor(getResources().getColor(R.color.colorGrey));
@@ -123,8 +123,8 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
                 rateFourIcon.setImageResource(R.drawable.ic_rate_four_grey);
                 rateFourText.setTextColor(getResources().getColor(R.color.colorGrey));
 
-                rateFiveIcon.setImageResource(R.drawable.ic_rate_five_grey);
-                rateFiveText.setTextColor(getResources().getColor(R.color.colorGrey));
+             //   rateFiveIcon.setImageResource(R.drawable.ic_rate_five_grey);
+               // rateFiveText.setTextColor(getResources().getColor(R.color.colorGrey));
 
                 selectedRating = 1;
 
@@ -136,8 +136,8 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
                 rateThreeIcon.setImageResource(R.drawable.ic_rate_three_yellow);
                 rateThreeText.setTextColor(getResources().getColor(R.color.colorYellow));
 
-                rateOneIcon.setImageResource(R.drawable.ic_rate_one_grey);
-                rateOneText.setTextColor(getResources().getColor(R.color.colorGrey));
+              //  rateOneIcon.setImageResource(R.drawable.ic_rate_one_grey);
+                //rateOneText.setTextColor(getResources().getColor(R.color.colorGrey));
 
                 rateTwoIcon.setImageResource(R.drawable.ic_rate_two_grey);
                 rateTwoText.setTextColor(getResources().getColor(R.color.colorGrey));
@@ -145,8 +145,8 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
                 rateFourIcon.setImageResource(R.drawable.ic_rate_four_grey);
                 rateFourText.setTextColor(getResources().getColor(R.color.colorGrey));
 
-                rateFiveIcon.setImageResource(R.drawable.ic_rate_five_grey);
-                rateFiveText.setTextColor(getResources().getColor(R.color.colorGrey));
+                //rateFiveIcon.setImageResource(R.drawable.ic_rate_five_grey);
+                //rateFiveText.setTextColor(getResources().getColor(R.color.colorGrey));
 
                 selectedRating = 2;
 
@@ -158,8 +158,8 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
                 rateFourIcon.setImageResource(R.drawable.ic_rate_four_yellow);
                 rateFourText.setTextColor(getResources().getColor(R.color.colorGreen));
 
-                rateOneIcon.setImageResource(R.drawable.ic_rate_one_grey);
-                rateOneText.setTextColor(getResources().getColor(R.color.colorGrey));
+            //    rateOneIcon.setImageResource(R.drawable.ic_rate_one_grey);
+              //  rateOneText.setTextColor(getResources().getColor(R.color.colorGrey));
 
                 rateTwoIcon.setImageResource(R.drawable.ic_rate_two_grey);
                 rateTwoText.setTextColor(getResources().getColor(R.color.colorGrey));
@@ -167,8 +167,8 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
                 rateThreeIcon.setImageResource(R.drawable.ic_rate_three_grey);
                 rateThreeText.setTextColor(getResources().getColor(R.color.colorGrey));
 
-                rateFiveIcon.setImageResource(R.drawable.ic_rate_five_grey);
-                rateFiveText.setTextColor(getResources().getColor(R.color.colorGrey));
+                // rateFiveIcon.setImageResource(R.drawable.ic_rate_five_grey);
+                // rateFiveText.setTextColor(getResources().getColor(R.color.colorGrey));
 
                 selectedRating = 3;
 

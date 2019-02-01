@@ -123,5 +123,11 @@
     <string name="service_advisor">ServiceAdvisor</string>
     <string name="Feed_back">Feed Back</string>
     <string name="submit">Submit</string>
+    <string name="title_activity_remarks">RemarksActivity</string>
+    <string name="Remarks">Remarks</string>
+    <string name="title_activity_booking_details">BookingDetails</string>
+    <string name="booking_details">Booking Details</string>
+    <string name="title_activity_sos_search_city">SosSearchCity</string>
+    <string name="title_activity_display_selected_image">DisplaySelectedImage</string>
 
 </resources>

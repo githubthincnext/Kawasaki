@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <uses-feature android:name="android.hardware.location.gps" />
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -26,6 +25,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".DisplayImage.DisplaySelectedImage"
+            android:label="@string/title_activity_display_selected_image"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".SosSerachCity.SosSearchCity"
+            android:label="@string/title_activity_sos_search_city"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.BookingDetails"
+            android:label="@string/title_activity_booking_details"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.RemarksActivity"
+            android:label="@string/title_activity_remarks"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SplashScreen"
             android:label="@string/app_name"
@@ -75,7 +90,7 @@
         <activity
             android:name=".ServiceHistory"
             android:label="@string/title_activity_service_history"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

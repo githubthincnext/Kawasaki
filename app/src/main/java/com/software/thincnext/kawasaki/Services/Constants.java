@@ -14,6 +14,8 @@ public class Constants {
     public static final String OTP="OTP";
     public static final String OTP_STATUS="OTPStatus";
 
+    public static final String IMAGE_PATH="image_path";
+
 
 
 }
