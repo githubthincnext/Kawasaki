@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
        android:id="@+id/relative_layout"
-        android:background="@drawable/back_ground"
+        android:background="@drawable/registered_back"
         tools:context=".Activity.Register">
 
 
@@ -19,11 +19,20 @@
             android:layout_centerInParent="true"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_in"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_20"/>
+
             <ImageView
                 android:id="@+id/iv_login_splashLogo"
                 android:layout_width="@dimen/space_128"
                 android:layout_height="@dimen/space_128"
-                android:src="@drawable/reachout"/>
+           />
 
 
             <TextView
@@ -32,6 +41,7 @@
                 android:layout_margin="@dimen/space_15"
                 android:text="@string/login_text"
                 android:textSize="@dimen/text_18"
+                android:textStyle="bold"
                 android:textColor="@color/colorWhite"
                 android:gravity="center"
                 />

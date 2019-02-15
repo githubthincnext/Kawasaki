@@ -80,6 +80,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:id="@+id/book_service"
+                    android:background="@drawable/list_selector_background"
                     android:gravity="center">
 
                     <ImageView
@@ -124,6 +125,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:background="@drawable/list_selector_background"
                     android:gravity="center">
                     <ImageView
                         android:layout_width="wrap_content"
@@ -179,6 +181,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:background="@drawable/list_selector_background"
                     android:gravity="center">
                     <ImageView
                         android:layout_width="wrap_content"
@@ -221,6 +224,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:background="@drawable/list_selector_background"
                     android:gravity="center">
                     <ImageView
                         android:layout_width="wrap_content"
@@ -275,6 +279,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:background="@drawable/list_selector_background"
                     android:gravity="center">
                     <ImageView
                         android:layout_width="wrap_content"

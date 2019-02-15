@@ -129,5 +129,6 @@
     <string name="booking_details">Booking Details</string>
     <string name="title_activity_sos_search_city">SosSearchCity</string>
     <string name="title_activity_display_selected_image">DisplaySelectedImage</string>
+    <string name="sign_in">Sign In</string>
 
 </resources>

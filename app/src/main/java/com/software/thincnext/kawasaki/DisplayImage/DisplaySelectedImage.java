@@ -1,5 +1,6 @@
 package com.software.thincnext.kawasaki.DisplayImage;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -23,11 +24,13 @@ public class DisplaySelectedImage extends AppCompatActivity {
     ImageView imageView;
 
     @BindView(R.id.button)
-    Button ok;
+    ImageView ok;
 
 
     //Sharedpreferences
     private SharedPreferences sharedPreferences;
+
+    Bitmap bmp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,20 +38,24 @@ public class DisplaySelectedImage extends AppCompatActivity {
         setContentView(R.layout.activity_display_selected_image);
         ButterKnife.bind(this);
 
+        final byte[] byteArray = getIntent().getByteArrayExtra("selectedBitmap");
+        bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 
-
-      //  imageView.setImageBitmap(otp);
+        imageView.setImageBitmap(bmp);
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(DisplaySelectedImage.this, HomeActivity.class);
+
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("returnedImage",byteArray);
+                setResult(Activity.RESULT_OK,returnIntent);
                 finish();
             }
         });
 
 
-      //  getSupportActionBar().setDisplayShowHomeEnabled(false);
+        //  getSupportActionBar().setDisplayShowHomeEnabled(false);
 
     }
 

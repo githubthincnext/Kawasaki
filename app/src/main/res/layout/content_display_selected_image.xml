@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorBlack"
+    android:paddingTop="@dimen/space_24"
+    android:paddingBottom="@dimen/space_24"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".DisplayImage.DisplaySelectedImage"
     tools:showIn="@layout/activity_display_selected_image">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"/>
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:src="@drawable/kawasaki_logo"
+        android:layout_height="match_parent"
+        />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/button"
-        android:text="@string/book_service"/>
+        android:layout_width="@dimen/space_48"
+        android:layout_height="@dimen/space_48"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/space_24"
+        android:src="@drawable/send"
+
+        />
 
 
-</LinearLayout>
+</RelativeLayout>

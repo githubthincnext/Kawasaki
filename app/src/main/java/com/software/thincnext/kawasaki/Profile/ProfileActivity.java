@@ -1,35 +1,40 @@
 package com.software.thincnext.kawasaki.Profile;
 
+import android.Manifest;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AlertDialog;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.software.thincnext.kawasaki.Dialog.ChangePicDialog;
 import com.software.thincnext.kawasaki.Dialog.EditProfileDialog;
-import com.software.thincnext.kawasaki.Dialog.LogoutAppDialog;
 import com.software.thincnext.kawasaki.Models.Primary.Login;
 import com.software.thincnext.kawasaki.R;
 import com.software.thincnext.kawasaki.Services.API;
 import com.software.thincnext.kawasaki.Services.Constants;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -40,8 +45,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
+//    @BindView(R.id.recycler_view)
+  //  RecyclerView recyclerView;
 
 
     private ProfileAdapter mAdapter;
@@ -55,6 +60,12 @@ public class ProfileActivity extends AppCompatActivity {
     @BindView(R.id.email)
     TextView mEmail;
 
+    @BindView(R.id.imageView_one)
+    ImageView displayImage;
+
+    @BindView(R.id.register_number)
+    TextView mRegisterdNumber;
+
     private List<Bike> bikeList = new ArrayList<>();
 
 
@@ -67,6 +78,13 @@ public class ProfileActivity extends AppCompatActivity {
     //Declaring progress dialog
     private ProgressDialog mProgress;
 
+    CircleImageView chooseImage;
+
+
+    //capturing from camera and gallery
+    public static final int REQUEST_CAMERA_PROFILEIMAGE = 1088;
+    public static final int REQUEST_GALLERY_PROFILEIMAGE = 1089;
+    private static final int MY_PERMISSIONS_REQUEST_ACCOUNTS = 1;
 
 
     @Override
@@ -82,12 +100,15 @@ public class ProfileActivity extends AppCompatActivity {
         String name = sharedPreferences.getString(Constants.CUSTOMER_NAME, null);
         String mobileNumber = sharedPreferences.getString(Constants.MOBILE_NUMBER, null);
         String email=sharedPreferences.getString(Constants.EMAIL,null);
+        String registredNumber=sharedPreferences.getString(Constants.REGISTER_NUMBER,null);
+
+        chooseImage = (CircleImageView)findViewById(R.id.imageViewSelect);
 
         if (name != null) {
             mName.setText(name);
         }
 
-        if (mobileNumber != null) {
+        if (mobileNumber != null){
             mMobileNumber.setText(mobileNumber);
         }
 
@@ -96,30 +117,266 @@ public class ProfileActivity extends AppCompatActivity {
         }
         else {
             mEmail.setText(email);
+        }
 
+        if (registredNumber!=null){
+            mRegisterdNumber.setText(registredNumber);
         }
 
         //Initialising progress dialog
         mProgress = new ProgressDialog(this);
 
         // call primary bike service
-        callPrimaryBikeService();
+        //callPrimaryBikeService();
 
     //   mAdapter = new ProfileAdapter(bikeList);
 
-        mAdapter = new ProfileAdapter(this,ProfileActivity.this);
+      //  mAdapter = new ProfileAdapter(this,ProfileActivity.this);
+
 
         //Recyclerview
-        recyclerView.setHasFixedSize(true);
+      /*  recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManagerTopic = new LinearLayoutManager(ProfileActivity.this);
         linearLayoutManagerTopic.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManagerTopic);
+        recyclerView.setAdapter(mAdapter); */
 
-        recyclerView.setAdapter(mAdapter);
+
 
        // addDataToRecylerView();
+        chooseImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
 
+                //Checking permission Marshmallow
+                if (Build.VERSION.SDK_INT >= 23) {
+
+                    if (checkPermissionCameraGallery()) {
+                        FragmentManager changePicManager = getFragmentManager();
+                        ChangePicDialogOne changePicDialog = new ChangePicDialogOne();
+                        changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
+
+                    } else {
+
+                        //Request permission
+                        requestPermissionCameraGallery();
+                    }
+                } else {
+
+                    FragmentManager changePicManager = getFragmentManager();
+                    ChangePicDialogOne changePicDialog = new ChangePicDialogOne();
+                    changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
+
+
+                }
+            }
+        });
+
+
+    }
+
+
+
+    //Func -  Select Camera
+    public void chooseCamera() {
+        //Checking permission Marshmallow
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkPermissionCameraGallery()) {
+
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, REQUEST_CAMERA_PROFILEIMAGE);
+
+            } else {
+                //Request permission
+                requestPermissionCameraGallery();
+
+            }
+        } else {
+
+
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(cameraIntent, REQUEST_CAMERA_PROFILEIMAGE);
+        }//zero can be replaced with any action code
+    }
+    //Func - Select Gallery
+    public void chooseGallery() {
+        //Checking permission Marshmallow
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkPermissionCameraGallery()) {
+
+                Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(galleryIntent, REQUEST_GALLERY_PROFILEIMAGE);
+
+
+            } else {
+
+                //Request permission
+                requestPermissionCameraGallery();
+            }
+        } else {
+
+            Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+            galleryIntent.setType("image/*");
+            galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(galleryIntent, REQUEST_GALLERY_PROFILEIMAGE);
+
+
+        }
+    }
+
+
+    private void requestPermissionCameraGallery() {
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+
+
+            /*Snackbar snackbar = Snackbar
+                    .make(changeImageActivityContainer, "Please allow permission in App Settings.", Snackbar.LENGTH_LONG)
+                    .setAction("Go settings", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            intent.setData(Uri.parse("package:" + getApplicationContext().getPackageName()));
+                            startActivity(intent);
+
+                        }
+                    });
+
+            snackbar.show();*/
+
+
+        } else if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+
+           /* Snackbar snackbar = Snackbar
+                    .make(changeImageActivityContainer, "Please allow permission in App Settings.", Snackbar.LENGTH_LONG)
+                    .setAction("Go settings", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            intent.setData(Uri.parse("package:" + getApplicationContext().getPackageName()));
+                            startActivity(intent);
+
+                        }
+                    });
+
+            snackbar.show();*/
+
+
+        } else {
+
+            int permissionCAMERA = ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.CAMERA);
+
+
+            int storagePermission = ContextCompat.checkSelfPermission(this,
+
+
+                    Manifest.permission.READ_EXTERNAL_STORAGE);
+
+
+            List<String> listPermissionsNeeded = new ArrayList<>();
+            if (storagePermission != PackageManager.PERMISSION_GRANTED) {
+                listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+            }
+            if (permissionCAMERA != PackageManager.PERMISSION_GRANTED) {
+                listPermissionsNeeded.add(Manifest.permission.CAMERA);
+            }
+            if (!listPermissionsNeeded.isEmpty()) {
+                ActivityCompat.requestPermissions(this,
+
+                        listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), MY_PERMISSIONS_REQUEST_ACCOUNTS);
+
+            }
+
+
+        }
+    }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_ACCOUNTS:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    FragmentManager changePicManager = getFragmentManager();
+                    ChangePicDialog changePicDialog = new ChangePicDialog();
+                    changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
+
+                } else {
+
+
+                }
+                break;
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+
+            if (requestCode == REQUEST_CAMERA_PROFILEIMAGE) {
+
+                Bitmap capturedBitmap = (Bitmap) data.getExtras().get("data");
+                displayImage.setImageBitmap(capturedBitmap);
+
+            }
+            else if (requestCode == REQUEST_GALLERY_PROFILEIMAGE) {
+
+                try {
+                    final Bitmap selectedBitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+
+                    displayImage.setImageBitmap(selectedBitmap);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        else {
+
+           /* Snackbar snackbar = Snackbar
+                    .make(, "Cancelled", Snackbar.LENGTH_LONG);
+
+            snackbar.show();*/
+
+        }
+    }
+
+    private boolean checkPermissionCameraGallery() {
+        int permissionCAMERA = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA);
+
+
+        int storagePermission = ContextCompat.checkSelfPermission(this,
+
+
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+
+
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (storagePermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (permissionCAMERA != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.CAMERA);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this,
+
+
+                    listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), MY_PERMISSIONS_REQUEST_ACCOUNTS);
+            return false;
+        }
+
+        return true;
     }
 
     private void callPrimaryBikeService() {
@@ -153,10 +410,14 @@ public class ProfileActivity extends AppCompatActivity {
                         for (int i = 0; i < jsonResponse.body().size(); i++) {
                             JsonObject object = jsonResponse.body().get(i).getAsJsonObject();
 
+                            String regsistredNumber =object.get("RegistrationNo").getAsString();
+
+                            mRegisterdNumber.setText(regsistredNumber);
+
                             Log.e("Primary Bike Details", jsonResponse.body() + "");
 
-                            mAdapter.listUpdate(jsonResponse.body());
-                            mAdapter.notifyDataSetChanged();
+                         //   mAdapter.listUpdate(jsonResponse.body());
+                           // mAdapter.notifyDataSetChanged();
 
                         }
 
@@ -196,6 +457,8 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
+
+
     public OkHttpClient.Builder getHttpClient() {
         if (builder == null) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
@@ -209,6 +472,8 @@ public class ProfileActivity extends AppCompatActivity {
         }
         return builder;
     }
+
+
 
     private void addDataToRecylerView() {
 
@@ -233,7 +498,12 @@ public class ProfileActivity extends AppCompatActivity {
         mAdapter.notifyDataSetChanged();
 
 
+
     }
+
+
+
+
 
     @OnClick({ R.id.back_button})
     public void onClick(View view) {

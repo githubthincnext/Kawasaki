@@ -60,10 +60,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
+                    android:layout_marginLeft="@dimen/space_20"
                     android:gravity="center">
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="3"
+                        android:layout_weight="6"
                         android:layout_height="wrap_content">
                     <CheckBox
                         android:id="@+id/FreeServiceCheckBox"
@@ -75,7 +76,8 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="5"
+                        android:layout_weight="6"
+                        android:layout_marginRight="@dimen/space_20"
                         android:layout_height="wrap_content">
                     <CheckBox
                         android:id="@+id/periodicServiceCheckBox"
@@ -90,11 +92,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
+                    android:layout_marginLeft="@dimen/space_20"
                     android:gravity="center">
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="3"
+                        android:layout_weight="6"
                         android:layout_height="wrap_content">
 
                     <CheckBox
@@ -107,7 +110,8 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="5"
+                        android:layout_weight="6"
+                        android:layout_marginRight="@dimen/space_20"
                         android:layout_height="wrap_content">
 
                     <CheckBox
@@ -160,7 +164,10 @@
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
-
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -170,16 +177,20 @@
             android:layout_marginRight="@dimen/space_16"
             android:textSize="@dimen/text_16"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/datePicker"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_gravity="end"
+            android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_10"
+            android:background="@drawable/report_date" />
 
-          <FrameLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="@dimen/space_16"
-              android:layout_marginRight="@dimen/space_16">
+        </FrameLayout>
+
+
+
 
 
 
@@ -189,21 +200,20 @@
                     android:layout_width="match_parent"
                     android:focusable="false"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_16"
+                    android:layout_marginRight="@dimen/space_16"
                    />
 
-              <ImageView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:background="@drawable/report_date"
-                  android:id="@+id/datePicker"
-                  android:layout_gravity="end"/>
 
-          </FrameLayout>
-        </LinearLayout>
+
        <LinearLayout
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:orientation="horizontal">
+           <FrameLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               >
 
            <TextView
                android:layout_width="wrap_content"
@@ -215,6 +225,16 @@
                android:layout_marginRight="@dimen/space_16"
                android:textSize="@dimen/text_16"/>
 
+           <ImageView
+               android:id="@+id/fromDatePicker"
+               android:layout_width="24dp"
+               android:layout_height="24dp"
+               android:layout_gravity="end"
+               android:layout_marginLeft="@dimen/space_16"
+               android:layout_marginRight="@dimen/space_16"
+               android:layout_marginTop="@dimen/space_10"
+               android:background="@drawable/time_picker" />
+           </FrameLayout>
           <!-- <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
@@ -247,12 +267,6 @@
                 android:layout_height="wrap_content"
                 />
 
-                <ImageView
-                    android:id="@+id/fromDatePicker"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="end"
-                    android:background="@drawable/time_picker" />
             </LinearLayout>
 
          <!--   <LinearLayout
@@ -278,37 +292,40 @@
                     android:layout_gravity="end"/>
             </LinearLayout>-->
         </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_16"
-            android:layout_marginRight="@dimen/space_16"
-            android:textSize="@dimen/text_16"
-            android:layout_marginTop="@dimen/space_10"
-            android:text="@string/city"/>
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_16"
+            android:layout_marginTop="@dimen/space_10"
+            android:text="@string/city"/>
+
+        <ImageView
+            android:layout_width="@dimen/space_25"
+            android:layout_height="@dimen/space_25"
+            android:background="@drawable/search"
+            android:layout_marginTop="@dimen/space_10"
+            android:id="@+id/search_city"
+            android:layout_gravity="end"/>
+        </FrameLayout>
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/cityName"
+                android:layout_marginLeft="@dimen/space_16"
+                android:layout_marginRight="@dimen/space_16"
                 android:focusable="false"/>
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/search"
-                android:id="@+id/search_city"
-                android:layout_gravity="end"/>
 
 
 
-        </FrameLayout>
+
+
 
         <TextView
             android:layout_width="wrap_content"

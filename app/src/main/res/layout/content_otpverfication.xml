@@ -9,7 +9,7 @@
         android:orientation="vertical"
         android:gravity="center"
        android:id="@+id/linear_layout"
-        android:background="@drawable/back_ground"
+        android:background="@drawable/registered_back"
         tools:context=".Activity.OTPVerfication">
 
 

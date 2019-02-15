@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
@@ -25,9 +26,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-
-
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -36,11 +34,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.JsonArray;
@@ -51,7 +46,6 @@ import com.software.thincnext.kawasaki.Dialog.ChangePicDialog;
 import com.software.thincnext.kawasaki.Dialog.ExitAppDialog;
 import com.software.thincnext.kawasaki.Dialog.FeedbackDialog;
 import com.software.thincnext.kawasaki.Dialog.LogoutAppDialog;
-import com.software.thincnext.kawasaki.Dialog.PicDisplayDialog;
 import com.software.thincnext.kawasaki.DisplayImage.DisplaySelectedImage;
 import com.software.thincnext.kawasaki.Inbox.InboxActivity;
 import com.software.thincnext.kawasaki.Profile.ProfileActivity;
@@ -60,7 +54,6 @@ import com.software.thincnext.kawasaki.ServiceHistory;
 import com.software.thincnext.kawasaki.Services.API;
 import com.software.thincnext.kawasaki.Services.ConnectionDetector;
 import com.software.thincnext.kawasaki.Services.Constants;
-import com.yugansh.tyagi.smileyrating.SmileyRatingView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -124,6 +117,9 @@ public class HomeActivity extends AppCompatActivity
 
     //internet connection
     private ConnectionDetector connectionDetector;
+
+    public static final int REQUEST_DISPLAY_IMAGE = 1090;
+
 
 
     @Override
@@ -615,28 +611,26 @@ public class HomeActivity extends AppCompatActivity
 
                 try {
                     final Bitmap selectedBitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
-
-
-
-
-                       Intent intent=new Intent(HomeActivity.this, DisplaySelectedImage.class);
-                      startActivity(intent);
-
-
-
-                            chooseImage.setImageBitmap(selectedBitmap);
-
-
-
-
-
-
-
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    selectedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] byteArray = stream.toByteArray();
+                    Intent intent=new Intent(HomeActivity.this, DisplaySelectedImage.class);
+                    intent.putExtra("selectedBitmap",byteArray);
+                    startActivityForResult(intent, REQUEST_DISPLAY_IMAGE);
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+            else if (requestCode == REQUEST_DISPLAY_IMAGE)
+            {
+
+                byte[] byteArray = data.getByteArrayExtra("returnedImage");
+                Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                chooseImage.setImageBitmap(bmp);
+            }
+
+
         }
         else {
 
@@ -659,20 +653,16 @@ public class HomeActivity extends AppCompatActivity
                 break;
 
             case R.id.book_service_layout:
-
                 Intent intent1=new Intent(HomeActivity.this,BookService.class);
                 startActivity(intent1);
                 break;
 
             case R.id.home_inbox:
-
                 Intent intent2=new Intent(HomeActivity.this,InboxActivity.class);
                 startActivity(intent2);
                 break;
 
-
-
-            case R.id.home_profile:
+                case R.id.home_profile:
 
                 Intent intent3=new Intent(HomeActivity.this,ProfileActivity.class);
                 startActivity(intent3);
@@ -754,7 +744,17 @@ public class HomeActivity extends AppCompatActivity
 
 
 
-        } else if (id==R.id.nav_inbox){
+        }
+
+        else if (id==R.id.nave_service_history){
+
+            //Going to Service History Page
+            Intent intent= new Intent(HomeActivity.this,ServiceHistory.class);
+            startActivity(intent);
+
+
+        }
+        else if (id==R.id.nav_inbox){
 
             //Going to Inbox Page
             Intent intent= new Intent(HomeActivity.this,InboxActivity.class);

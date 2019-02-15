@@ -25,4 +25,5 @@
     <dimen name="space_40">40dp</dimen>
     <dimen name="space_3">3dp</dimen>
     <dimen name="space_48">48dp</dimen>
+    <dimen name="space_25">25dp</dimen>
 </resources>

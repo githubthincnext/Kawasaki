@@ -10,8 +10,6 @@ import android.widget.TextView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.software.thincnext.kawasaki.R;
-import java.util.ArrayList;
-import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -52,6 +50,7 @@ public class ProfileAdapter extends  RecyclerView.Adapter<ProfileAdapter.ViewHol
 
         final String regNumber=jsonElement.get("RegistrationNo").getAsString();
         holder.mRegisterNumber.setText(regNumber);
+
 
         return new ProfileAdapter.ViewHolder(view);
     }
