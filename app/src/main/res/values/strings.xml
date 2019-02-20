@@ -17,6 +17,9 @@
     <string name="enter_valid_otp">Enter valid OTP</string>
     <string name="title_activity_home">HomeActivity</string>
 
+    <string name="events">Events</string>
+    <string name="service_history_home">Stores</string>
+    <string name="service_name_book">Service</string>
     <string name="exit">EXIT</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -43,7 +46,7 @@
     <string name="remove_picture">Remove Picture</string>
     <string name="title_activity_book_service">BookService</string>
     <string name="book_service">Book Service</string>
-    <string name="service">Service</string>
+
     <string name="date_of_service">Date of service</string>
     <string name="dealer_ship_name">Dealership Name</string>
 
@@ -130,5 +133,8 @@
     <string name="title_activity_sos_search_city">SosSearchCity</string>
     <string name="title_activity_display_selected_image">DisplaySelectedImage</string>
     <string name="sign_in">Sign In</string>
+    <string name="remove">Remove</string>
+    <string name="date">Date</string>
+    <string name="booking_id">Booking Id</string>
 
 </resources>

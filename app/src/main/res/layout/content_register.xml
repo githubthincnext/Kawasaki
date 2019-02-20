@@ -96,7 +96,7 @@
                 android:id="@+id/ll_login_continueClick"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_45"
-                android:background="@drawable/selector_primarybackground"
+                android:background="@color/colorPrimary"
                 android:layout_marginLeft="@dimen/space_15"
                 android:layout_marginRight="@dimen/space_15"
                 android:layout_marginBottom="@dimen/space_15"

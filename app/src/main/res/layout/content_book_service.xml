@@ -29,7 +29,7 @@
             android:layout_marginRight="@dimen/space_16"
             android:layout_marginTop="@dimen/space_10"
             android:textSize="@dimen/text_16"
-            android:text="@string/service"/>
+            android:text="@string/service_name_book"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -368,7 +368,7 @@
         android:layout_marginTop="@dimen/space_30"
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
-        android:background="@drawable/button_gradiant_color"
+        android:background="@color/colorPrimary"
         android:textColor="@color/colorWhite"/>
 
         <TextView

@@ -1,15 +1,16 @@
 package com.software.thincnext.kawasaki.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.software.thincnext.kawasaki.R;
-import com.software.thincnext.kawasaki.SearchActivity.SearchCity;
+import com.software.thincnext.kawasaki.Services.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,11 +21,26 @@ public class RemarksActivity extends AppCompatActivity {
     @BindView(R.id.remarks)
     EditText mRemarks;
 
+    @BindView(R.id.date)
+    TextView mDate;
+
+
+    //Sharedpreferences
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_remarks);
         ButterKnife.bind(this);
+
+        sharedPreferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
+
+         String dateOfService = sharedPreferences.getString(Constants.DATE_OF_SERVICE, null);
+         if (dateOfService!=null){
+             mDate.setText(dateOfService);
+
+         }
 
     }
 

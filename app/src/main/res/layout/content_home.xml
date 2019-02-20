@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,7 +12,155 @@
     tools:context=".Activity.HomeActivity"
     tools:showIn="@layout/app_bar_home">
 
+
+
+
+
+
     <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:id="@+id/rewards_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="@dimen/space_10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/reward_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rewards Points :"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/text_18" />
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:padding="@dimen/space_3"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/text_18" />
+            </LinearLayout>
+
+
+            <!--   <ImageView
+                   android:layout_width="@dimen/space_40"
+                   android:layout_height="@dimen/space_40"
+                   android:layout_gravity="center"
+                   android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />-->
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+
+            android:background="@color/colorGrey" />
+
+        <LinearLayout
+            android:id="@+id/message_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+
+            >
+
+
+            <TextView
+                android:id="@+id/service_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:padding="@dimen/space_10"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/text_16"
+                tools:text="Service Type" />
+
+            <ImageView
+                android:layout_width="@dimen/space_40"
+                android:layout_height="@dimen/space_40"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/message_layout"
+            android:background="@color/colorGrey" />
+
+
+        <Button
+            android:id="@+id/sos_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_10"
+            android:background="@drawable/edit_text_border_radius"
+            android:text="@string/sos"
+            android:layout_marginLeft="@dimen/space_5"
+            android:layout_marginRight="@dimen/space_5"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_20"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerviewItems"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_10"
+            android:layout_marginStart="@dimen/space_20"
+
+
+           />
+
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_above="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+    </android.support.v7.widget.RecyclerView>
+
+
+
+
+
+
+
+
+
+
+
+ <!--   <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -23,10 +171,10 @@
         android:orientation="horizontal"
         android:background="@drawable/button_gradiant_color">
 
-      <!--  <ImageView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-             android:src="@drawable/reminder" />-->
+             android:src="@drawable/reminder" />
 
         <TextView
             android:layout_width="0dp"
@@ -322,5 +470,5 @@
 
 
 
-    </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+    </LinearLayout>-->
+</RelativeLayout>

@@ -35,6 +35,7 @@ import com.software.thincnext.kawasaki.R;
         closeClick = (ImageView) rootView.findViewById(R.id.iv_changePicDialog_close);
         cameraClick = (LinearLayout) rootView.findViewById(R.id.ll_changePicDialog_camera);
         galleryClick = (LinearLayout) rootView.findViewById(R.id.ll_changePicDialog_gallery);
+        removeClick=(LinearLayout)rootView.findViewById(R.id.ll_changePicDialog_remove);
 
 
         //Setting onclick listner
@@ -71,6 +72,15 @@ import com.software.thincnext.kawasaki.R;
 
                 //Calling choose gallery
                 ((ProfileActivity) getActivity()).chooseGallery();
+
+                dismiss();
+
+                break;
+
+            case R.id.ll_changePicDialog_remove:
+
+                //Calling remove pic
+                ((ProfileActivity) getActivity()).removeProfilePic();
 
                 dismiss();
 

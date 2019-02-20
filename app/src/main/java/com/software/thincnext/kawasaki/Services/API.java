@@ -67,7 +67,7 @@ public interface API {
 
     //save booking details
     @POST("SaveServiceBooking")
-    Call<ResponseBody> updateBookingDetails(@Body ServiceBookingRequest serviceBookingRequest);
+    Call<JsonArray> updateBookingDetails(@Body ServiceBookingRequest serviceBookingRequest);
 
     //verify otp
   /*  @GET("Otp/verify")

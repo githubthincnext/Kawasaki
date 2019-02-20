@@ -10,11 +10,14 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -153,9 +156,10 @@ public class ProfileActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= 23) {
 
                     if (checkPermissionCameraGallery()) {
-                        FragmentManager changePicManager = getFragmentManager();
-                        ChangePicDialogOne changePicDialog = new ChangePicDialogOne();
-                        changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
+                        // FragmentManager changePicManager = getFragmentManager();
+                        ChangePicDialog changePicDialog = new ChangePicDialog();
+                        //changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
+                        changePicDialog.show(getSupportFragmentManager(),changePicDialog.getTag());
 
                     } else {
 
@@ -164,9 +168,13 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 } else {
 
-                    FragmentManager changePicManager = getFragmentManager();
-                    ChangePicDialogOne changePicDialog = new ChangePicDialogOne();
-                    changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
+
+                    ChangePicDialog changePicDialog = new ChangePicDialog();
+                    changePicDialog.show(getSupportFragmentManager(),changePicDialog.getTag());
+
+                  //  FragmentManager changePicManager = getFragmentManager();
+                    //ChangePicDialogOne changePicDialog = new ChangePicDialogOne();
+                    //changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
 
 
                 }
@@ -306,9 +314,10 @@ public class ProfileActivity extends AppCompatActivity {
             case MY_PERMISSIONS_REQUEST_ACCOUNTS:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    FragmentManager changePicManager = getFragmentManager();
+                    // FragmentManager changePicManager = getFragmentManager();
                     ChangePicDialog changePicDialog = new ChangePicDialog();
-                    changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
+                    //changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
+                    changePicDialog.show(getSupportFragmentManager(),changePicDialog.getTag());
 
                 } else {
 
@@ -526,4 +535,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    public void removeProfilePic() {
+
+        displayImage.setImageResource(R.drawable.ic_user);
+    }
 }

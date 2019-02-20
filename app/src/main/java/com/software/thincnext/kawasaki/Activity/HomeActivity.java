@@ -4,21 +4,24 @@ package com.software.thincnext.kawasaki.Activity;
 import android.Manifest;
 
 
-import android.app.Dialog;
+
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
-import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -27,35 +30,49 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.software.thincnext.kawasaki.Adapter.CenterZoomLayoutManager;
+import com.software.thincnext.kawasaki.Adapter.HomeList;
+import com.software.thincnext.kawasaki.Adapter.ItemList;
+import com.software.thincnext.kawasaki.Adapter.LinePagerIndicatorDecoration;
+import com.software.thincnext.kawasaki.Adapter.MyAdapter;
+import com.software.thincnext.kawasaki.Adapter.MyHomeListAdapter;
 import com.software.thincnext.kawasaki.ApiRequest.DashBoardInfo;
 import com.software.thincnext.kawasaki.DataBase.DatabseHelper;
 import com.software.thincnext.kawasaki.Dialog.ChangePicDialog;
-import com.software.thincnext.kawasaki.Dialog.ExitAppDialog;
 import com.software.thincnext.kawasaki.Dialog.FeedbackDialog;
 import com.software.thincnext.kawasaki.Dialog.LogoutAppDialog;
 import com.software.thincnext.kawasaki.DisplayImage.DisplaySelectedImage;
 import com.software.thincnext.kawasaki.Inbox.InboxActivity;
 import com.software.thincnext.kawasaki.Profile.ProfileActivity;
 import com.software.thincnext.kawasaki.R;
+import com.software.thincnext.kawasaki.SearchActivity.RecylerTouchListener;
 import com.software.thincnext.kawasaki.ServiceHistory;
 import com.software.thincnext.kawasaki.Services.API;
 import com.software.thincnext.kawasaki.Services.ConnectionDetector;
 import com.software.thincnext.kawasaki.Services.Constants;
-
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,15 +110,26 @@ public class HomeActivity extends AppCompatActivity
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
-    @BindView(R.id.book_service)
-    LinearLayout mBookService;
+
 
     @BindView(R.id.service_type)
     TextView mServiceType;
 
-    @BindView(R.id.constraintLayout)
-    ConstraintLayout parentLayout;
+    @BindView(R.id.recyclerviewItems)
+    RecyclerView recyclerViewItem;
 
+
+    @BindView(R.id.constraintLayout)
+    RelativeLayout parentLayout;
+
+
+
+    @BindView(R.id.recyclerview)
+    RecyclerView recyclerView;
+
+
+      @BindView(R.id.sos_button)
+    Button mSosButton;
 
     CircleImageView chooseImage;
     TextView HeaderCustomerName;
@@ -121,6 +149,19 @@ public class HomeActivity extends AppCompatActivity
     public static final int REQUEST_DISPLAY_IMAGE = 1090;
 
 
+    boolean doubleBackToExitPressedOnce = false;
+
+
+
+
+    private List<ItemList> itemList = new ArrayList<>();
+
+    private List<HomeList> homeLists=new ArrayList<>();
+    private Context context;
+
+    private MyAdapter mAdapter;
+    private MyHomeListAdapter myHomeListAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +169,45 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
 
         ButterKnife.bind(this);
+
+
+
+        mAdapter = new MyAdapter(itemList);
+
+        CenterZoomLayoutManager linearLayoutManager= (CenterZoomLayoutManager) new CenterZoomLayoutManager(HomeActivity.this, CenterZoomLayoutManager.HORIZONTAL, false);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setOnFlingListener(null);
+        recyclerView.setAdapter(mAdapter);
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(recyclerView);
+
+        recyclerView.addItemDecoration(new LinePagerIndicatorDecoration());
+        setDataToRecylerview();
+
+
+
+        // add a divider after each item for more clarity
+        // groceryRecyclerView.addItemDecoration(new DividerItemDecoration(MainActivity.this, LinearLayoutManager.HORIZONTAL));
+        myHomeListAdapter = new MyHomeListAdapter(homeLists,HomeActivity.this);
+        recyclerViewItem.setHasFixedSize(true);
+
+        final int numberOfColumns = 4;
+       // int numberOfColumns = Utility.calculateNoOfColumns(getApplicationContext());
+        recyclerViewItem.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
+
+
+
+        //   LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        // recyclerViewItem.setLayoutManager(horizontalLayoutManager);
+        recyclerViewItem.setAdapter(myHomeListAdapter);
+        populateHomePageList();
+
+
+
+
+
 
 
         //Initialising progress dialog
@@ -153,13 +233,14 @@ public class HomeActivity extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mBookService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(HomeActivity.this,BookService.class);
-                startActivity(intent);
-            }
-        });
+   mSosButton.setOnClickListener(new View.OnClickListener() {
+       @Override
+       public void onClick(View view) {
+           Intent intent=new Intent(HomeActivity.this,SOS.class);
+           startActivity(intent);
+       }
+   });
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -208,9 +289,12 @@ public class HomeActivity extends AppCompatActivity
                 if (Build.VERSION.SDK_INT >= 23) {
 
                     if (checkPermissionCameraGallery()) {
-                        FragmentManager changePicManager = getFragmentManager();
+                       // FragmentManager changePicManager = getFragmentManager();
                         ChangePicDialog changePicDialog = new ChangePicDialog();
-                        changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
+                        //changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
+                        changePicDialog.show(getSupportFragmentManager(),changePicDialog.getTag());
+
+
 
                     } else {
 
@@ -219,14 +303,61 @@ public class HomeActivity extends AppCompatActivity
                     }
                 } else {
 
-                    FragmentManager changePicManager = getFragmentManager();
+
+                    // FragmentManager changePicManager = getFragmentManager();
                     ChangePicDialog changePicDialog = new ChangePicDialog();
-                    changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
+                    //changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
+                    changePicDialog.show(getSupportFragmentManager(),changePicDialog.getTag());
 
 
-                }
+
+            }
+
+
+                // FragmentManager changePicManager = getFragmentManager();
+                    //ChangePicDialog changePicDialog = new ChangePicDialog();
+                    //changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
+
+
+
+
+
             }
         });
+    }
+
+    private void populateHomePageList() {
+        HomeList item = new HomeList(R.drawable.service_home,R.string.service_name_book);
+        homeLists.add(item);
+
+        item = new HomeList(R.drawable.stores,R.string.service_history_home);
+        homeLists.add(item);
+
+
+
+        item= new HomeList(R.drawable.events_iocn,R.string.events);
+        homeLists.add(item);
+
+        item = new HomeList(R.drawable.profile_iocn,R.string.profile);
+        homeLists.add(item);
+
+
+
+        myHomeListAdapter.notifyDataSetChanged();
+        recyclerViewItem.setAdapter(myHomeListAdapter);
+    }
+
+    private void setDataToRecylerview() {
+        ItemList item = new ItemList(R.drawable.kawasaki_bike);
+        itemList.add(item);
+        item = new ItemList(R.drawable.kawasaki_bike);
+        itemList.add(item);
+        item = new ItemList(R.drawable.kawasaki_bike);
+        itemList.add(item);
+        item= new ItemList(R.drawable.kawasaki_bike);
+        itemList.add(item);
+        mAdapter.notifyDataSetChanged();
+        recyclerView.setAdapter(mAdapter);
     }
 
     private void checkInternetConnection() {
@@ -300,6 +431,11 @@ public class HomeActivity extends AppCompatActivity
                                     FeedbackDialog feedbackDialog = new FeedbackDialog();
                                     feedbackDialog.show(feedbackManager, "FEEDBACK_DIALOG");
                                 }
+                            }
+
+                            if (messageType.equalsIgnoreCase("OB")){
+                                Intent intent=new Intent(HomeActivity.this,BookService.class);
+                                startActivity(intent);
                             }
 
 
@@ -585,10 +721,11 @@ public class HomeActivity extends AppCompatActivity
             case MY_PERMISSIONS_REQUEST_ACCOUNTS:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    FragmentManager changePicManager = getFragmentManager();
-                    ChangePicDialog changePicDialog = new ChangePicDialog();
-                    changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
 
+                    // FragmentManager changePicManager = getFragmentManager();
+                    ChangePicDialog changePicDialog = new ChangePicDialog();
+                    //changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
+                    changePicDialog.show(getSupportFragmentManager(),changePicDialog.getTag());
                 } else {
 
 
@@ -609,18 +746,29 @@ public class HomeActivity extends AppCompatActivity
             }
             else if (requestCode == REQUEST_GALLERY_PROFILEIMAGE) {
 
+
                 try {
                     final Bitmap selectedBitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    //Write file
+                    String filename = "bitmap.png";
+                    FileOutputStream stream = this.openFileOutput(filename, Context.MODE_PRIVATE);
                     selectedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                    byte[] byteArray = stream.toByteArray();
-                    Intent intent=new Intent(HomeActivity.this, DisplaySelectedImage.class);
-                    intent.putExtra("selectedBitmap",byteArray);
-                    startActivityForResult(intent, REQUEST_DISPLAY_IMAGE);
 
-                } catch (IOException e) {
+                    //Cleanup
+                    stream.close();
+                    selectedBitmap.recycle();
+
+                    //Pop intent
+                    Intent in1 = new Intent(this, DisplaySelectedImage.class);
+                    in1.putExtra("selectedBitmap", filename);
+                    startActivityForResult(in1, REQUEST_DISPLAY_IMAGE);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+
+
+
             }
             else if (requestCode == REQUEST_DISPLAY_IMAGE)
             {
@@ -644,52 +792,29 @@ public class HomeActivity extends AppCompatActivity
 
 
 
-    @OnClick({R.id.sos_list,R.id.book_service_layout,R.id.home_inbox,R.id.home_profile,R.id.service_history})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.sos_list:
-                Intent intent0=new Intent(HomeActivity.this,SOS.class);
-                startActivity(intent0);
-                break;
 
-            case R.id.book_service_layout:
-                Intent intent1=new Intent(HomeActivity.this,BookService.class);
-                startActivity(intent1);
-                break;
-
-            case R.id.home_inbox:
-                Intent intent2=new Intent(HomeActivity.this,InboxActivity.class);
-                startActivity(intent2);
-                break;
-
-                case R.id.home_profile:
-
-                Intent intent3=new Intent(HomeActivity.this,ProfileActivity.class);
-                startActivity(intent3);
-                break;
-
-
-            case R.id.service_history:
-                Intent intent4=new Intent(HomeActivity.this,ServiceHistory.class);
-                startActivity(intent4);
-                break;
-
-
-                }
-    }
 
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            //Calling dialog
-            FragmentManager exitManager = getFragmentManager();
-            ExitAppDialog exitAppDialog = new ExitAppDialog();
-            exitAppDialog.show(exitManager, "EXIT_DIALOG");
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
         }
+
+        this.doubleBackToExitPressedOnce = true;
+       // Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        Snackbar snackbar=Snackbar.make(parentLayout,"Please click BACK again to exit",Snackbar.LENGTH_SHORT);
+        snackbar.show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 
     @Override
@@ -774,10 +899,14 @@ public class HomeActivity extends AppCompatActivity
                 drawerLogout.closeDrawer(GravityCompat.START);
             }
 
-            //Calling dialog
-            FragmentManager logoutManager = getFragmentManager();
+
             LogoutAppDialog logoutAppDialog = new LogoutAppDialog();
-            logoutAppDialog.show(logoutManager, "LOGOUT_DIALOG");
+            logoutAppDialog.show(getSupportFragmentManager(),logoutAppDialog.getTag());
+
+            //Calling dialog
+          //  FragmentManager logoutManager = getFragmentManager();
+            //LogoutAppDialog logoutAppDialog = new LogoutAppDialog();
+            //logoutAppDialog.show(logoutManager, "LOGOUT_DIALOG");
 
 
 
@@ -872,5 +1001,9 @@ public class HomeActivity extends AppCompatActivity
     }
 
     public void displayImage() {
+    }
+
+    public void removePicture() {
+        chooseImage.setImageResource(R.drawable.ic_user);
     }
 }

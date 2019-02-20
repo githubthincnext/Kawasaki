@@ -666,7 +666,7 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
         }
     }
 
-    private void callServiceBookingService(String service, String pickUp, String date, String fromTime, String city, String DealerName,String doorStepSevice,String standByvehicle) {
+    private void callServiceBookingService(String service, String pickUp, final String date, String fromTime, String city, String DealerName, String doorStepSevice, String standByvehicle) {
 
         String RegistrationNo=sharedPreferences.getString(Constants.REGISTER_NUMBER,"");
 
@@ -688,26 +688,51 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(GsonConverterFactory.create()).client(builder.build()).build();
         API gi = retrofit.create(API.class);
 
-        Call<ResponseBody> call = (Call<ResponseBody>) gi.updateBookingDetails(request);
+        Call<JsonArray> call = (Call<JsonArray>) gi.updateBookingDetails(request);
 
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<JsonArray>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
 
                 if (mProgress != null) {
                     mProgress.dismiss();
                 }
 
-                if (response.code() == 200) {
+                //Checking for response code
+                if (response != null) {
+                    if (response.code() == 200) {
 
-                    // successfull message
-                   // Toast.makeText(BookService.this,response.message(),Toast.LENGTH_SHORT).show();
 
-                    // Go to Enter Remarks Page
-                     Intent intent=new Intent(BookService.this,RemarksActivity.class);
-                     startActivity(intent);
+                        for (int i = 0; i < response.body().size(); i++) {
 
-                    return;
+                            JsonObject object = response.body().get(i).getAsJsonObject();
+
+                            Log.e("Booking Details", response.body() + "");
+
+                            String message = object.get("Msg").getAsString();
+
+                            if (message.contains("-1")) {
+                                 Toast.makeText(BookService.this,"Existing vehicle already open booking exist",Toast.LENGTH_SHORT).show();
+                            }
+
+                            // successfull message
+                            // Toast.makeText(BookService.this,response.message(),Toast.LENGTH_SHORT).show();
+
+                            // Go to Enter Remarks Page
+
+                            else {
+
+                                SharedPreferences mPref = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
+                                SharedPreferences.Editor editor =  mPref.edit();
+                                editor.putString(Constants.DATE_OF_SERVICE,date);
+                                editor.apply();
+                                Intent intent = new Intent(BookService.this, RemarksActivity.class);
+                                startActivity(intent);
+                            }
+
+                            return;
+                        }
+                    }
 
                 }
 
@@ -724,7 +749,7 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<JsonArray> call, Throwable t) {
 
                 Snackbar snackbar = Snackbar
                         .make(parentLayout, "Something went wrong! Try again", Snackbar.LENGTH_LONG);
