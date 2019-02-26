@@ -1,9 +1,7 @@
 package com.software.thincnext.kawasaki.Dialog;
 
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.os.Bundle;
-import android.support.design.widget.BottomSheetDialog;
+
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;

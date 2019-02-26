@@ -63,6 +63,7 @@ import com.software.thincnext.kawasaki.Adapter.MyAdapter;
 import com.software.thincnext.kawasaki.Adapter.MyHomeListAdapter;
 import com.software.thincnext.kawasaki.ApiRequest.DashBoardInfo;
 import com.software.thincnext.kawasaki.ApiRequest.FeedBackRequest;
+import com.software.thincnext.kawasaki.BookingCancel.CancelBooking;
 import com.software.thincnext.kawasaki.DataBase.DatabseHelper;
 import com.software.thincnext.kawasaki.Dialog.ChangePicDialog;
 import com.software.thincnext.kawasaki.Dialog.FeedbackDialog;
@@ -293,10 +294,8 @@ public class HomeActivity extends AppCompatActivity
             public void onClick(View view) {
 
 
-                //Checking permission Marshmallow
-                if (Build.VERSION.SDK_INT >= 23) {
 
-                    if (checkPermissionCameraGallery()) {
+
                        // FragmentManager changePicManager = getFragmentManager();
                         ChangePicDialog changePicDialog = new ChangePicDialog();
                         //changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
@@ -304,27 +303,8 @@ public class HomeActivity extends AppCompatActivity
 
 
 
-                    } else {
-
-                        //Request permission
-                        requestPermissionCameraGallery();
-                    }
-                } else {
 
 
-                    // FragmentManager changePicManager = getFragmentManager();
-                    ChangePicDialog changePicDialog = new ChangePicDialog();
-                    //changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
-                    changePicDialog.show(getSupportFragmentManager(),changePicDialog.getTag());
-
-
-
-            }
-
-
-                // FragmentManager changePicManager = getFragmentManager();
-                    //ChangePicDialog changePicDialog = new ChangePicDialog();
-                    //changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
 
 
 
@@ -433,7 +413,7 @@ public class HomeActivity extends AppCompatActivity
                                 mServiceType.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        Intent intent=new Intent(HomeActivity.this,BookService.class);
+                                        Intent intent=new Intent(HomeActivity.this, CancelBooking.class);
                                         startActivity(intent);
                                     }
                                 });
@@ -729,28 +709,17 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_ACCOUNTS:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
 
-                    // FragmentManager changePicManager = getFragmentManager();
-                    ChangePicDialog changePicDialog = new ChangePicDialog();
-                    //changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
-                    changePicDialog.show(getSupportFragmentManager(),changePicDialog.getTag());
-                } else {
 
 
-                }
-                break;
-        }
-    }
+
+
+
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK ) {
 
             if (requestCode == REQUEST_CAMERA_PROFILEIMAGE) {
 
@@ -760,7 +729,6 @@ public class HomeActivity extends AppCompatActivity
             }
             else if (requestCode == REQUEST_GALLERY_PROFILEIMAGE) {
 
-
                 try {
                     Bitmap selectedBitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
 
@@ -769,13 +737,7 @@ public class HomeActivity extends AppCompatActivity
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
-
             }
-
-
-
         }
         else {
 
@@ -786,7 +748,6 @@ public class HomeActivity extends AppCompatActivity
 
         }
     }
-
 
 
 
@@ -919,51 +880,23 @@ public class HomeActivity extends AppCompatActivity
 
     //Func -  Select Camera
     public void chooseCamera() {
-        //Checking permission Marshmallow
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkPermissionCameraGallery()) {
+
 
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, REQUEST_CAMERA_PROFILEIMAGE);
 
-            } else {
-                //Request permission
-                requestPermissionCameraGallery();
 
-            }
-        } else {
-
-
-            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(cameraIntent, REQUEST_CAMERA_PROFILEIMAGE);
-        }//zero can be replaced with any action code
     }
     //Func - Select Gallery
     public void chooseGallery() {
-        //Checking permission Marshmallow
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkPermissionCameraGallery()) {
-
-                Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                galleryIntent.setType("image/*");
-                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(galleryIntent, REQUEST_GALLERY_PROFILEIMAGE);
 
 
-            } else {
-
-                //Request permission
-                requestPermissionCameraGallery();
-            }
-        } else {
-
-            Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-            galleryIntent.setType("image/*");
-            galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(galleryIntent, REQUEST_GALLERY_PROFILEIMAGE);
+        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        galleryIntent.setType("image/*");
+        galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(galleryIntent, REQUEST_GALLERY_PROFILEIMAGE);
 
 
-        }
     }
 
 

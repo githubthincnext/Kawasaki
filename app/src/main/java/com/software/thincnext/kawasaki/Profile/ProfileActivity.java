@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.software.thincnext.kawasaki.Activity.HomeActivity;
 import com.software.thincnext.kawasaki.Dialog.ChangePicDialog;
 import com.software.thincnext.kawasaki.Dialog.EditProfileDialog;
 import com.software.thincnext.kawasaki.Dialog.ProfileChangePic;
@@ -153,32 +154,10 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                //Checking permission Marshmallow
-                if (Build.VERSION.SDK_INT >= 23) {
-
-                    if (checkPermissionCameraGallery()) {
-                        // FragmentManager changePicManager = getFragmentManager();
-                        ProfileChangePic changePicDialog = new ProfileChangePic();
-                        //changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
-                        changePicDialog.show(getSupportFragmentManager(),changePicDialog.getTag());
-
-                    } else {
-
-                        //Request permission
-                        requestPermissionCameraGallery();
-                    }
-                } else {
-
 
                     ProfileChangePic changePicDialog = new ProfileChangePic();
                     changePicDialog.show(getSupportFragmentManager(),changePicDialog.getTag());
 
-                  //  FragmentManager changePicManager = getFragmentManager();
-                    //ChangePicDialogOne changePicDialog = new ChangePicDialogOne();
-                    //changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
-
-
-                }
             }
         });
 
@@ -189,51 +168,27 @@ public class ProfileActivity extends AppCompatActivity {
 
     //Func -  Select Camera
     public void chooseCamera() {
-        //Checking permission Marshmallow
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkPermissionCameraGallery()) {
+
+
 
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, REQUEST_CAMERA_PROFILEIMAGE);
 
-            } else {
-                //Request permission
-                requestPermissionCameraGallery();
-
-            }
-        } else {
 
 
-            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(cameraIntent, REQUEST_CAMERA_PROFILEIMAGE);
-        }//zero can be replaced with any action code
     }
     //Func - Select Gallery
     public void chooseGallery() {
         //Checking permission Marshmallow
         if (Build.VERSION.SDK_INT >= 23) {
-            if (checkPermissionCameraGallery()) {
 
                 Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 galleryIntent.setType("image/*");
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(galleryIntent, REQUEST_GALLERY_PROFILEIMAGE);
 
-
-            } else {
-
-                //Request permission
-                requestPermissionCameraGallery();
-            }
-        } else {
-
-            Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-            galleryIntent.setType("image/*");
-            galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(galleryIntent, REQUEST_GALLERY_PROFILEIMAGE);
-
-
         }
+
     }
 
 
@@ -309,30 +264,15 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_ACCOUNTS:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    // FragmentManager changePicManager = getFragmentManager();
-                    ChangePicDialog changePicDialog = new ChangePicDialog();
-                    //changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
-                    changePicDialog.show(getSupportFragmentManager(),changePicDialog.getTag());
-
-                } else {
-
-
-                }
-                break;
-        }
-    }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
 
             if (requestCode == REQUEST_CAMERA_PROFILEIMAGE) {
+
+                Bundle bundle = data.getExtras();
 
                 Bitmap capturedBitmap = (Bitmap) data.getExtras().get("data");
                 displayImage.setImageBitmap(capturedBitmap);
