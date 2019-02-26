@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/layout_background"
+ >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_48"
+                    android:background="@drawable/layout_background_grey"
+                    android:text="Services"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_18"
+                    android:textColor="@color/colorWhite"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+
+                >
+                    <TextView
+                        android:id="@+id/book_service_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_48"
+                        android:text="@string/book_service"
+                        android:gravity="center"
+                        android:textSize="@dimen/text_16"
+                        android:textColor="@color/colorBlack"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/grey500"
+                        android:layout_marginTop="5dp"
+                   >
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/service_history_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_48"
+                        android:text="@string/service_history"
+                        android:gravity="center"
+                        android:textSize="@dimen/text_16"
+                        android:textColor="@color/colorBlack"/>
+
+                </LinearLayout>
+
+        </LinearLayout>
+
+

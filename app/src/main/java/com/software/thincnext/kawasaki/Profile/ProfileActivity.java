@@ -26,6 +26,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.software.thincnext.kawasaki.Dialog.ChangePicDialog;
 import com.software.thincnext.kawasaki.Dialog.EditProfileDialog;
+import com.software.thincnext.kawasaki.Dialog.ProfileChangePic;
 import com.software.thincnext.kawasaki.Models.Primary.Login;
 import com.software.thincnext.kawasaki.R;
 import com.software.thincnext.kawasaki.Services.API;
@@ -157,7 +158,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                     if (checkPermissionCameraGallery()) {
                         // FragmentManager changePicManager = getFragmentManager();
-                        ChangePicDialog changePicDialog = new ChangePicDialog();
+                        ProfileChangePic changePicDialog = new ProfileChangePic();
                         //changePicDialog.show(changePicManager, "CHANGEPIC_DIALOG");
                         changePicDialog.show(getSupportFragmentManager(),changePicDialog.getTag());
 
@@ -169,7 +170,7 @@ public class ProfileActivity extends AppCompatActivity {
                 } else {
 
 
-                    ChangePicDialog changePicDialog = new ChangePicDialog();
+                    ProfileChangePic changePicDialog = new ProfileChangePic();
                     changePicDialog.show(getSupportFragmentManager(),changePicDialog.getTag());
 
                   //  FragmentManager changePicManager = getFragmentManager();
@@ -538,5 +539,8 @@ public class ProfileActivity extends AppCompatActivity {
     public void removeProfilePic() {
 
         displayImage.setImageResource(R.drawable.ic_user);
+    }
+
+    public void removePicture() {
     }
 }

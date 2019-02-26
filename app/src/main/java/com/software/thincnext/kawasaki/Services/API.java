@@ -5,6 +5,7 @@ package com.software.thincnext.kawasaki.Services;
 import com.google.gson.JsonArray;
 import com.software.thincnext.Request.BookService.ServiceBookingRequest;
 import com.software.thincnext.kawasaki.ApiRequest.DashBoardInfo;
+import com.software.thincnext.kawasaki.ApiRequest.FeedBackRequest;
 import com.software.thincnext.kawasaki.ApiRequest.OtpRequest;
 import com.software.thincnext.kawasaki.Models.DealerLsit.DealerRequest;
 import com.software.thincnext.kawasaki.Models.Primary.Login;
@@ -68,6 +69,10 @@ public interface API {
     //save booking details
     @POST("SaveServiceBooking")
     Call<JsonArray> updateBookingDetails(@Body ServiceBookingRequest serviceBookingRequest);
+
+    //save Feedback Details
+    @POST("CustomerFeedback")
+    Call<JsonArray> saveFeedBackDetails(@Body FeedBackRequest feedBackRequest);
 
     //verify otp
   /*  @GET("Otp/verify")

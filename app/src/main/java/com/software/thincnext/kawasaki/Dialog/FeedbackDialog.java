@@ -28,6 +28,8 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
 
     private int selectedRating = 0;
 
+    private String FeedBackInfo;
+
     public FeedbackDialog() {
 
     }
@@ -114,6 +116,10 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
                 rateTwoIcon.setImageResource(R.drawable.ic_rate_two_yellow);
                 rateTwoText.setTextColor(getResources().getColor(R.color.colorOrange));
 
+                FeedBackInfo=rateTwoText.getText().toString();
+
+
+
 //                rateOneIcon.setImageResource(R.drawable.ic_rate_one_grey);
   //              rateOneText.setTextColor(getResources().getColor(R.color.colorGrey));
 
@@ -135,6 +141,8 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
                 //Setting values
                 rateThreeIcon.setImageResource(R.drawable.ic_rate_three_yellow);
                 rateThreeText.setTextColor(getResources().getColor(R.color.colorYellow));
+
+                FeedBackInfo=rateThreeText.getText().toString();
 
               //  rateOneIcon.setImageResource(R.drawable.ic_rate_one_grey);
                 //rateOneText.setTextColor(getResources().getColor(R.color.colorGrey));
@@ -158,11 +166,15 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
                 rateFourIcon.setImageResource(R.drawable.ic_rate_four_yellow);
                 rateFourText.setTextColor(getResources().getColor(R.color.colorGreen));
 
+
+
             //    rateOneIcon.setImageResource(R.drawable.ic_rate_one_grey);
               //  rateOneText.setTextColor(getResources().getColor(R.color.colorGrey));
 
                 rateTwoIcon.setImageResource(R.drawable.ic_rate_two_grey);
                 rateTwoText.setTextColor(getResources().getColor(R.color.colorGrey));
+
+                FeedBackInfo=rateFourText.getText().toString();
 
                 rateThreeIcon.setImageResource(R.drawable.ic_rate_three_grey);
                 rateThreeText.setTextColor(getResources().getColor(R.color.colorGrey));
@@ -204,7 +216,8 @@ public class FeedbackDialog  extends DialogFragment implements View.OnClickListe
                     Toast.makeText(getActivity(), "Select rating", Toast.LENGTH_SHORT).show();
                 } else {
 
-                    ((HomeActivity) getActivity()).saveRating(ratingText, selectedRating);
+                    ((HomeActivity) getActivity()).saveRating(ratingText, selectedRating,FeedBackInfo);
+
 
                     dismiss();
                 }

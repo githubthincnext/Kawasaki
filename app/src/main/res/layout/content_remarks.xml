@@ -156,7 +156,7 @@
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:layout_gravity="center"
-        android:background="@drawable/edit_text_border_radius"
+
         android:layout_marginTop="@dimen/space_5"
         android:gravity="top"
         android:inputType="textMultiLine"

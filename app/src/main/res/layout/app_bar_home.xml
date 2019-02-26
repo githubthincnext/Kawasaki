@@ -21,54 +21,18 @@
         app:popupTheme="@style/AppTheme.PopupOverlay" >
 
 
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="center"
                 android:gravity="center"
-                android:layout_marginRight="@dimen/space_45"
-
-                >
-
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="@dimen/space_30"
-                    android:layout_height="@dimen/space_30"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/ic_user" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imageViewSelect"
-                    android:layout_width="@dimen/space_30"
-                    android:layout_height="@dimen/space_30"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/edit_image" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/imageView"
-                    android:padding="2dp"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="@dimen/space_5"
-                    android:id="@+id/app_name"
-                    android:text="@string/app_name"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/text_16" />
-
-            </RelativeLayout>
-        <!--    <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
 
            <RelativeLayout
-                android:layout_width="@dimen/space_40"
-                android:layout_height="@dimen/space_40"
-                android:layout_gravity="center"
+                android:layout_width="@dimen/space_30"
+                android:layout_height="@dimen/space_30"
+
                 >
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -91,20 +55,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/app_name"/>
-            </LinearLayout>-->
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_16"
+                    android:text="Reach Out"
+                    />
 
 
+            </LinearLayout>
 
-
-
-
-
-
-
-
-        <ImageView
+            <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/notification"
@@ -113,22 +73,9 @@
             android:layout_marginRight="10dp"
             android:layout_gravity="end"
             />
-
-
-
-
-
-
-
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
-
-
-
-
-
-
 
 
     <include layout="@layout/content_home" />

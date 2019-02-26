@@ -720,7 +720,7 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
 
                             // Go to Enter Remarks Page
 
-                            else {
+
 
                                 SharedPreferences mPref = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
                                 SharedPreferences.Editor editor =  mPref.edit();
@@ -728,7 +728,7 @@ public class BookService extends AppCompatActivity implements GoogleApiClient.Co
                                 editor.apply();
                                 Intent intent = new Intent(BookService.this, RemarksActivity.class);
                                 startActivity(intent);
-                            }
+
 
                             return;
                         }

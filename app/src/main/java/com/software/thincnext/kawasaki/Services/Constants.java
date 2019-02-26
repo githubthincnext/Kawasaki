@@ -15,6 +15,8 @@ public class Constants {
     public static final String OTP_STATUS="OTPStatus";
     public static final String DATE_OF_SERVICE="date_of_service";
 
+    public static final String MESSAGE_TYPE="message_type";
+
     public static final String IMAGE_PATH="image_path";
 
 

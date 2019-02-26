@@ -24,5 +24,6 @@
     <color name="colorOrange">#f27500</color>
     <color name="colorYellow">#e9b409</color>
     <color name="colorDarkGreen">#4E911D</color>
-
+    <color name="grey500">#9E9E9E</color>
+    <color name="grey200">#EEEEEE</color>
 </resources>

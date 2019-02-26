@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,7 +30,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -51,6 +54,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.software.thincnext.Request.BookService.ServiceBookingRequest;
 import com.software.thincnext.kawasaki.Adapter.CenterZoomLayoutManager;
 import com.software.thincnext.kawasaki.Adapter.HomeList;
 import com.software.thincnext.kawasaki.Adapter.ItemList;
@@ -58,6 +62,7 @@ import com.software.thincnext.kawasaki.Adapter.LinePagerIndicatorDecoration;
 import com.software.thincnext.kawasaki.Adapter.MyAdapter;
 import com.software.thincnext.kawasaki.Adapter.MyHomeListAdapter;
 import com.software.thincnext.kawasaki.ApiRequest.DashBoardInfo;
+import com.software.thincnext.kawasaki.ApiRequest.FeedBackRequest;
 import com.software.thincnext.kawasaki.DataBase.DatabseHelper;
 import com.software.thincnext.kawasaki.Dialog.ChangePicDialog;
 import com.software.thincnext.kawasaki.Dialog.FeedbackDialog;
@@ -88,6 +93,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.widget.GridLayout.HORIZONTAL;
 
 
 public class HomeActivity extends AppCompatActivity
@@ -167,7 +174,6 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         ButterKnife.bind(this);
 
 
@@ -198,6 +204,8 @@ public class HomeActivity extends AppCompatActivity
         recyclerViewItem.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
 
 
+        DividerItemDecoration itemDecor = new DividerItemDecoration(HomeActivity.this, HORIZONTAL);
+        recyclerViewItem.addItemDecoration(itemDecor);
 
         //   LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.HORIZONTAL, false);
         // recyclerViewItem.setLayoutManager(horizontalLayoutManager);
@@ -335,26 +343,24 @@ public class HomeActivity extends AppCompatActivity
 
 
 
-        item= new HomeList(R.drawable.events_iocn,R.string.events);
+        item= new HomeList(R.drawable.events,R.string.events);
         homeLists.add(item);
 
         item = new HomeList(R.drawable.profile_iocn,R.string.profile);
         homeLists.add(item);
-
-
 
         myHomeListAdapter.notifyDataSetChanged();
         recyclerViewItem.setAdapter(myHomeListAdapter);
     }
 
     private void setDataToRecylerview() {
-        ItemList item = new ItemList(R.drawable.kawasaki_bike);
+        ItemList item = new ItemList(R.drawable.bikeeee);
         itemList.add(item);
-        item = new ItemList(R.drawable.kawasaki_bike);
+        item = new ItemList(R.drawable.bikeeee);
         itemList.add(item);
-        item = new ItemList(R.drawable.kawasaki_bike);
+        item = new ItemList(R.drawable.bikeeee);
         itemList.add(item);
-        item= new ItemList(R.drawable.kawasaki_bike);
+        item= new ItemList(R.drawable.bikeeee);
         itemList.add(item);
         mAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(mAdapter);
@@ -368,13 +374,10 @@ public class HomeActivity extends AppCompatActivity
             // call otpService
             callWebserviceForHeaderType();
 
+
         }
         else
         {
-
-
-
-
             Snackbar snackbar = Snackbar.make(parentLayout, "No internet connection!", Snackbar.LENGTH_LONG);
 
             snackbar.show();
@@ -423,6 +426,20 @@ public class HomeActivity extends AppCompatActivity
                             String messageType=jsonObject.get("MessageType").getAsString();
                             mServiceType.setText(message);
 
+
+
+                            if (messageType.equalsIgnoreCase("OB")){
+
+                                mServiceType.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent intent=new Intent(HomeActivity.this,BookService.class);
+                                        startActivity(intent);
+                                    }
+                                });
+                            }
+
+
                             if (messageType.equalsIgnoreCase("FD")) {
 
                                 if (!databseHelper.checkRegistrationNumber(RegistrationNo))
@@ -433,10 +450,7 @@ public class HomeActivity extends AppCompatActivity
                                 }
                             }
 
-                            if (messageType.equalsIgnoreCase("OB")){
-                                Intent intent=new Intent(HomeActivity.this,BookService.class);
-                                startActivity(intent);
-                            }
+
 
 
 
@@ -748,35 +762,18 @@ public class HomeActivity extends AppCompatActivity
 
 
                 try {
-                    final Bitmap selectedBitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
-                    //Write file
-                    String filename = "bitmap.png";
-                    FileOutputStream stream = this.openFileOutput(filename, Context.MODE_PRIVATE);
-                    selectedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    Bitmap selectedBitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
 
-                    //Cleanup
-                    stream.close();
-                    selectedBitmap.recycle();
+                    chooseImage.setImageBitmap(selectedBitmap);
 
-                    //Pop intent
-                    Intent in1 = new Intent(this, DisplaySelectedImage.class);
-                    in1.putExtra("selectedBitmap", filename);
-                    startActivityForResult(in1, REQUEST_DISPLAY_IMAGE);
-                } catch (Exception e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
 
 
 
-
             }
-            else if (requestCode == REQUEST_DISPLAY_IMAGE)
-            {
 
-                byte[] byteArray = data.getByteArrayExtra("returnedImage");
-                Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                chooseImage.setImageBitmap(bmp);
-            }
 
 
         }
@@ -993,11 +990,133 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-    public void saveRating(String ratingText, int selectedRating) {
+    public void saveRating(String ratingText, int selectedRating,String feedbackInfo) {
 
         String RegistrationNo=sharedPreferences.getString(Constants.REGISTER_NUMBER,"");
 
         databseHelper.insertRating(RegistrationNo,selectedRating,ratingText);
+
+        boolean isInternetPresent = connectionDetector.isConnectingToInternet();
+
+        if (isInternetPresent) {
+
+            // call FeedbackService
+            callSaveFeedBackService(ratingText,RegistrationNo,feedbackInfo);
+
+        }
+        else
+        {
+
+
+
+
+            Snackbar snackbar = Snackbar.make(parentLayout, "No internet connection!", Snackbar.LENGTH_LONG);
+
+            snackbar.show();
+        }
+
+    }
+
+    private void callSaveFeedBackService(String ratingText,String RegistrationNo,String feedbackInfo) {
+
+
+
+
+
+
+
+
+        showProgressDialog(getResources().getString(R.string.please_wait));
+
+        FeedBackRequest request = new FeedBackRequest();
+
+        String InfoEndFeed = null;
+
+        if (feedbackInfo.equalsIgnoreCase("Sad")){
+
+            InfoEndFeed="N";
+
+        }
+        if (feedbackInfo.equalsIgnoreCase("Very Happy")){
+            InfoEndFeed="V";
+
+        }
+
+        if (feedbackInfo.equalsIgnoreCase("Happy")){
+            InfoEndFeed="H";
+        }
+
+      request.setmRegNumber(RegistrationNo);
+      request.setmRating(ratingText);
+      request.setmFeedBack(InfoEndFeed);
+
+
+        builder = getHttpClient();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(GsonConverterFactory.create()).client(builder.build()).build();
+        API gi = retrofit.create(API.class);
+
+        Call<JsonArray> call = (Call<JsonArray>) gi.saveFeedBackDetails(request);
+
+        call.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+
+                if (mProgress != null) {
+                    mProgress.dismiss();
+                }
+
+                //Checking for response code
+                if (response != null) {
+                    if (response.code() == 200) {
+
+                        for (int i = 0; i < response.body().size(); i++) {
+
+                            JsonObject object = response.body().get(i).getAsJsonObject();
+
+                            Log.e("FeedBack Details", response.body() + "");
+
+                            String message = object.get("Msg").getAsString();
+                            Toast.makeText(HomeActivity.this,message,Toast.LENGTH_SHORT).show();
+                        }
+
+                            Log.e("Respones",response+"");
+
+                    }
+
+else {
+    Toast.makeText(HomeActivity.this,"Something Went Wrong",Toast.LENGTH_SHORT).show();
+                    }
+
+
+                    }
+
+
+
+                if (mProgress != null) {
+                    mProgress.dismiss();
+                }
+                //If status code is not 200
+                else {
+                    Snackbar snackbar = Snackbar
+                            .make(parentLayout, "Something went wrong! Try again", Snackbar.LENGTH_LONG);
+
+                    snackbar.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+
+                Snackbar snackbar = Snackbar
+                        .make(parentLayout, "Something went wrong! Try again", Snackbar.LENGTH_LONG);
+
+                snackbar.show();
+
+
+            }
+
+        });
+
     }
 
     public void displayImage() {
@@ -1005,5 +1124,48 @@ public class HomeActivity extends AppCompatActivity
 
     public void removePicture() {
         chooseImage.setImageResource(R.drawable.ic_user);
+    }
+
+    public void viewDialog() {
+
+        LayoutInflater inflater = getLayoutInflater();
+        final View alertLayout = inflater.inflate(R.layout.custom_dialog_menu_sevice_list, null);
+        TextView bookService,serviceHistory;
+        bookService = (TextView) alertLayout.findViewById(R.id.book_service_text);
+
+        serviceHistory = (TextView) alertLayout.findViewById(R.id.service_history_text);
+
+        bookService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent=new Intent(HomeActivity.this,BookService.class);
+                startActivity(intent);
+
+            }
+        });
+
+        serviceHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(HomeActivity.this,ServiceHistory.class);
+                startActivity(intent);
+            }
+        });
+
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        // alert.setTitle("Info");
+        // this is set the view from XML inside AlertDialog
+        alert.setView(alertLayout);
+
+        alert.setCancelable(true);
+        final AlertDialog dialog = alert.create();
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+      //  dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation_2;
+        dialog.show();
+      //  dialog.getWindow().setLayout(500, 800);
+
     }
 }

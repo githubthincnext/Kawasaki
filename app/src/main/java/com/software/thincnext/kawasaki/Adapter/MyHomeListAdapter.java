@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.software.thincnext.kawasaki.Activity.BookService;
 import com.software.thincnext.kawasaki.Activity.HomeActivity;
@@ -64,13 +65,18 @@ public class MyHomeListAdapter extends RecyclerView.Adapter<MyHomeListAdapter.My
              String itemName= (String) holder.title.getText();
 
                 if (itemName.equalsIgnoreCase("Service")){
-                    Intent intent=new Intent(context, BookService.class);
-                    context.startActivity(intent);
+                  //  Intent intent=new Intent(context, BookService.class);
+                    //context.startActivity(intent);
+
+
+                    ((HomeActivity) context).viewDialog();
                 }
 
                 if (itemName.equalsIgnoreCase("Stores")){
-                    Intent intent=new Intent(context, ServiceHistory.class);
-                    context.startActivity(intent);
+                  //  Intent intent=new Intent(context, ServiceHistory.class);
+                    //context.startActivity(intent);
+                    Toast.makeText(context,"Coming Soon",Toast.LENGTH_LONG).show();
+                    return;
                 }
                 if (itemName.equalsIgnoreCase("Events")){
                     Intent intent=new Intent(context, InboxActivity.class);
