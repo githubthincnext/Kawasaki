@@ -364,7 +364,8 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
-    private void callWebserviceForHeaderType() {
+    private void
+    callWebserviceForHeaderType() {
 
         //progress dialog
         showProgressDialog(getResources().getString(R.string.please_wait));
@@ -413,7 +414,7 @@ public class HomeActivity extends AppCompatActivity
                                 mServiceType.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        Intent intent=new Intent(HomeActivity.this, CancelBooking.class);
+                                        Intent intent=new Intent(HomeActivity.this, BookingDetails.class);
                                         startActivity(intent);
                                     }
                                 });

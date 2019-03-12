@@ -4,6 +4,7 @@ package com.software.thincnext.kawasaki.Services;
 
 import com.google.gson.JsonArray;
 import com.software.thincnext.Request.BookService.ServiceBookingRequest;
+import com.software.thincnext.kawasaki.ApiRequest.CancelServiceRequest;
 import com.software.thincnext.kawasaki.ApiRequest.DashBoardInfo;
 import com.software.thincnext.kawasaki.ApiRequest.FeedBackRequest;
 import com.software.thincnext.kawasaki.ApiRequest.OtpRequest;
@@ -39,6 +40,10 @@ public interface API {
     @POST("GetDashboardInfo")
     Call<JsonArray> ServiceType (@Body DashBoardInfo dashBoardInfo);
 
+    // call cancel service booking
+    @POST("CancelServiceBooking")
+    Call<JsonArray> cancelServiceBooking (@Body CancelServiceRequest cancelServiceRequest);
+
 
     //send otp details
     @POST("Otp/sendOpt")
@@ -63,7 +68,9 @@ public interface API {
     @POST("GetDealerList")
     Call<JsonArray> getDealerList(@Body DealerRequest dealerRequest);
 
-
+    //getBookingDetailsInfo
+    @POST("GetBookingInfo")
+    Call<JsonArray> getBookingDetailsInfo(@Body ServiceRequest serviceRequest);
 
 
     //save booking details

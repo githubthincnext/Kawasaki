@@ -149,6 +149,7 @@
             android:layout_height="wrap_content"
             android:text="@string/Remarks"
             android:textStyle="bold"
+            android:layout_marginLeft="@dimen/space_10"
             android:textSize="@dimen/text_18"/>
 
     <EditText

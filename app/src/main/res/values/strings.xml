@@ -137,5 +137,12 @@
     <string name="date">Date</string>
     <string name="booking_id">Booking Id</string>
     <string name="title_activity_cancel_booking">CancelBooking</string>
+    <string name="cancel_bkng">Cancel Booking</string>
+    <string name="confirm_cancellation">Confirm Cancellation</string>
+    <string name="reason">Reason</string>
+    <string name="booking_number">Booking Number</string>
+    <string name="booking_date">BookingDate</string>
+    <string name="booking_branch">BookingBranch</string>
+    <string name="service_date">Service Date</string>
 
 </resources>
